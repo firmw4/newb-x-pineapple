@@ -24,7 +24,7 @@ jobs:
       shell: bash
     - uses: actions/upload-artifact@v4
       with:
-        name: newb-x-windows
+        name: newb-x-pineapple-windows
         path: ./build/Windows/temp
   android:
     runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
     - run: ./pack.sh
     - uses: actions/upload-artifact@v4
       with:
-        name: newb-x-android
+        name: newb-x-pineapple-android
         path: ./build/Android/temp
   ios:
     runs-on: ubuntu-latest
@@ -58,5 +58,5 @@ jobs:
     - run: ./build.sh -p iOS
     - uses: actions/upload-artifact@v4
       with:
-        name: newb-x-ios-materials
+        name: newb-x-pineapple-ios-materials
         path: ./build/iOS
