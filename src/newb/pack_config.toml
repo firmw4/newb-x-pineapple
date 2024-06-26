@@ -1,7 +1,7 @@
-name = "Newb X Legacy"
-version = [0, 15, 0]
-url = "https://devendrn.github.io/newb-shader/"
-authors = ["devendrn"]
+name = "§lNewb X §6Pineapple§r"
+version = [0, 1, 0]
+url = "https://firmw4.vercel.app/newb-variants/"
+authors = ["firmw4"]
 min_supported_mc_version = [1, 20, 80]
 materials = ["Sky", "LegacyCubemap", "Clouds", "EndSky", "SunMoon", "RenderChunk", "Actor"]
 
@@ -9,52 +9,67 @@ materials = ["Sky", "LegacyCubemap", "Clouds", "EndSky", "SunMoon", "RenderChunk
 # %w = patch warning, %v = version
 long = '''
 §c%w
-§7- An enchanced vanilla shader for Minecraft!
+§7An aesthetic shader with a chill color theme
+This is a custom shader config from Newb X Legacy
 %v
-§3https://devendrn.github.io/newb-shader/
+§3https://firmw4.vercel.app/newb-variants/
 '''
-short = "Legacy port of Newb Shader for RenderDragon"
+short = "An aesthetic shader with a chill color theme"
 
 [uuid] # Use https://www.uuidgenerator.net/version4
-header = "95f774cf-4afa-73e7-a21a-72146307b1d2"
-module = "900f3d8b-37b4-465f-8f56-941687e36c35"
+header = "e65a32bc-b0aa-4ac0-9d5c-f4f8ba62c3aa"
+module = "fecd06fa-2960-46af-9fa9-bd0ff8a34c5e"
 
 # subpacks are arranged in left to right order
 # right-most subpack is enabled by default
 
+
 [[subpack]]
-define = "ROUNDED_CLOUDS"
+define = "RAINBOWS"
+materials = ["Sky"]
+description = '''
+§4R§6a§ei§an§2b§1o§5w§ds§r
+Summary: Show rainbow effect on sky
+'''
+
+[[subpack]]
+define = "ALWAYS_REFLECTION"
+materials = ["RenderChunk"]
+description = '''
+§eAlways Reflection§r
+Summary: Enable aurora and ground reflection effect
+'''
+
+[[subpack]]
+define = "MULTILAYER_CLOUDS"
 materials = ["Clouds"]
 description = '''
-Rounded Clouds
+§9Multilayer Clouds§r
+Summary: Add more clouds layer
 '''
 
 [[subpack]]
-define = "CHUNK_ANIM"
-materials = ["RenderChunk"]
+define = "SIMPLE_CLOUDS"
+materials = ["Clouds"]
 description = '''
-Chunk loading animation
+§3Simple Clouds§r
+Summary: Change to Simple Clouds
 '''
 
 [[subpack]]
-define = "NO_WAVE_NO_FOG"
-materials = ["RenderChunk"]
+define = "VANILLA_CLOUDS"
+materials = ["Clouds"]
 description = '''
-No fog and wave effects
-'''
-
-[[subpack]]
-define = "NO_FOG"
-materials = ["RenderChunk"]
-description = '''
-No fog effect
+§6Vanilla Clouds§r
+Summary: Change to Vanilla style Clouds
 '''
 
 [[subpack]]
 define = "NO_WAVE"
 materials = ["RenderChunk"]
 description = '''
-No wave effects
+§aNo Wave§r
+Summary: No wave effect
 '''
 
 [[subpack]]
@@ -62,4 +77,5 @@ define = "DEFAULT"
 materials = []
 description = '''
 Default
+Summary: Rounded clouds, wave effect and aurora at night
 '''

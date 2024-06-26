@@ -106,6 +106,7 @@ typedef struct mat2 {
 EMPTY_STRUCT(sampler2D)
 
 vec4 texture2D(sampler2D, vec2);
+vec4 texture2DLod(sampler2D, vec2, float);
 
 VEC_OPS(vec2)
 VEC_OPS(vec3)
@@ -234,4 +235,3 @@ uniform mat4 u_invView;
 uniform mat4 u_view;
 
 #define SAMPLER2D(_sampler, _reg) uniform sampler2D _sampler;
-
