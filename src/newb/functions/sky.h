@@ -104,7 +104,7 @@ vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 v, float t){
 	
   float f = (0.2*g + 0.8*smoothstep(1.5,-0.5,v.y));
   float h = (0.2*g + 0.8*smoothstep(0.5,-0.0,v.y));
-  float i = (0.9*g + 0.1*smoothstep(0.5,-0.1,v.t));
+  float i = (0.9*g + 0.1*smoothstep(0.5,-0.1,v.y));
   sky += mix(zenithCol, horizonCol, f*h*h*i);
   sky += (g*g*g*i*0.8 + 0.2*h*h*h*i*i)*vec3(0.41,0.3,0.62);
 
