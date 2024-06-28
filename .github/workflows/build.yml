@@ -1,18 +1,18 @@
 name: build
 
 on:
-  push:
-    branches:
-      - pineapple
-      - renewed>
+  workflow_dispatch:
+    inputs:
+      subversion:
+        description: 'Sub-version (eg: 46)'
+        required: true
+        type: string
 
 jobs:
   windows:
     runs-on: windows-2022
     steps:
     - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
     - uses: actions/cache@v4
       with:
         key: env-files-win-laz
@@ -20,12 +20,12 @@ jobs:
           ${{ github.workspace }}/tool/data
     - uses: actions/setup-python@v5
       with:
-        python-version: '3.11.2' 
+        python-version: '3.11' 
         cache: 'pip'
     - run: pip install -r requirements.txt
     - run: |
         .\build.bat setup
-        .\build.bat pack -p windows --use-git --no-zip
+        .\build.bat pack -p windows -v ${{ inputs.subversion }} --no-zip
     - uses: actions/upload-artifact@v4
       with:
         name: newb-x-windows
@@ -34,8 +34,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
     - uses: actions/cache@v4
       with:
         key: env-files-linux-laz
@@ -43,12 +41,12 @@ jobs:
           ${{ github.workspace }}/tool/data
     - uses: actions/setup-python@v5
       with:
-        python-version: '3.11.2' 
+        python-version: '3.11' 
         cache: 'pip'
     - run: pip install -r requirements.txt
     - run: |
         ./build.sh setup
-        ./build.sh pack -p android --use-git --no-zip
+        ./build.sh pack -p android -v ${{ inputs.subversion }} --no-zip
     - uses: actions/upload-artifact@v4
       with:
         name: newb-x-android
@@ -66,13 +64,34 @@ jobs:
           ${{ github.workspace }}/tool/data
     - uses: actions/setup-python@v5
       with:
-        python-version: '3.11.2' 
+        python-version: '3.11' 
         cache: 'pip'
     - run: pip install -r requirements.txt
     - run: |
         ./build.sh setup
-        ./build.sh pack -p ios --use-git --no-zip
+        ./build.sh pack -p ios -v ${{ inputs.subversion }} --no-zip
     - uses: actions/upload-artifact@v4
       with:
         name: newb-x-ios
         path: ./build/pack-ios
+  merged:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/cache@v4
+      with:
+        key: env-files-win-laz
+        path: |
+          ${{ github.workspace }}/tool/data
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11' 
+        cache: 'pip'
+    - run: pip install -r requirements.txt
+    - run: |
+        .\build.bat setup
+        .\build.bat pack -p merged -v ${{ inputs.subversion }} --no-zip
+    - uses: actions/upload-artifact@v4
+      with:
+        name: newb-x-merged
+        path: ./build/pack-merged
