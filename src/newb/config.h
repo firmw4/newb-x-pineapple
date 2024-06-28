@@ -167,6 +167,7 @@
 //#define NL_GROUND_AURORA_REFL             // [toggle] aurora reflection on ground
 
 /* ----------- CUSTOM CONFIG ----------- */
+
 #define NL_DARKEN_PLANT_BOTTOM      1.8     // darken at bottom (increase value to make darker)
 //#define NL_SHOOTING_STAR
 

@@ -1,6 +1,6 @@
 name = "§lNewb X §6Pineapple§r"
 version = [0, 1, 0]
-url = "https://firmw4.vercel.app/newb-variants/"
+url = "https://firmw4.vercel.app/minecraft-shader/"
 authors = ["firmw4"]
 min_supported_mc_version = [1, 20, 80]
 materials = ["Sky", "LegacyCubemap", "Clouds", "EndSky", "SunMoon", "RenderChunk", "Actor"]
@@ -8,11 +8,8 @@ materials = ["Sky", "LegacyCubemap", "Clouds", "EndSky", "SunMoon", "RenderChunk
 [description]
 # %w = patch warning, %v = version
 long = '''
+§7An aesthetic shader with a chill color theme §r%v
 §c%w
-§7An aesthetic shader with a chill color theme
-This is a custom shader config from Newb X Legacy
-%v
-§3https://firmw4.vercel.app/newb-variants/
 '''
 short = "An aesthetic shader with a chill color theme"
 
