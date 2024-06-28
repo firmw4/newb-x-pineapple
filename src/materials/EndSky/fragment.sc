@@ -14,7 +14,7 @@ void main() {
 // Instancing is off normally?
 #ifndef INSTANCING
   vec4 diffuse = texture2D(s_MatTexture, v_texcoord0);
-  
+
   // end sky gradient
   vec3 color = renderEndSky(getEndHorizonCol(), getEndZenithCol(), normalize(v_posTime.xyz), v_posTime.w);
 
