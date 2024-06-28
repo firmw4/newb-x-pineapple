@@ -35,13 +35,13 @@ def main():
         '-m',
         default=[],
         nargs='+',
-        help="build materials"
+        help="build materials (eg: Sky)"
     )
 
     mats_parser.add_argument(
         '-s',
         default="",
-        help="subpack config to use"
+        help="subpack config to use (eg: NO_WAVE)"
     )
 
     setup_parser.add_argument(
@@ -57,9 +57,9 @@ def main():
     )
 
     pack_parser.add_argument(
-        '--use-git',
-        action='store_true',
-        help="use git commits count for version"
+        '-v',
+        default="",
+        help="version number eg: 46"
     )
 
     args = parser.parse_args()
