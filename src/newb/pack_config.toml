@@ -1,40 +1,46 @@
 name = "§lNewb X §6Pineapple§r"
-version = [0, 1, 0]
-url = "https://firmw4.vercel.app/minecraft-shader/"
-authors = ["firmw4"]
+version = [0, 2, 0]
+url = "https://firmw4.vercel.app/"
+authors = ["devendrn", "firmw4"]
 min_supported_mc_version = [1, 20, 80]
 materials = ["Sky", "LegacyCubemap", "Clouds", "EndSky", "SunMoon", "RenderChunk", "Actor"]
 
 [description]
 # %w = patch warning, %v = version
 long = '''
-§7An aesthetic shader with a chill color theme §r%v
+§7An aesthetic shader with a chill color theme§r
+%v
 §c%w
 '''
-short = "An aesthetic shader with a chill color theme"
+short = "Legacy port of Newb Shader for RenderDragon"
 
 [uuid] # Use https://www.uuidgenerator.net/version4
 header = "e65a32bc-b0aa-4ac0-9d5c-f4f8ba62c3aa"
 module = "fecd06fa-2960-46af-9fa9-bd0ff8a34c5e"
+
+[info]
+# %a = authors
+copyright = '''
+Copyright (c) %a
+
+**Important Note:** Redistribution of this resource pack with links other than the official ones provided by the creator is strictly prohibited.
+'''
+credits = '''
+devendrn, firmw4
+'''
 
 # subpacks are arranged in left to right order
 # right-most subpack is enabled by default
 
 
 [[subpack]]
-define = "RAINBOWS"
-materials = ["Sky"]
+define = "VOLUMETRIC_CLOUDS"
+materials = ["Clouds"]
 description = '''
-§4R§6a§ei§an§2b§1o§5w§ds§r
-Summary: Show rainbow effect on sky
-'''
+§4Volumetric Clouds§r
 
-[[subpack]]
-define = "ALWAYS_REFLECTION"
-materials = ["RenderChunk"]
-description = '''
-§eAlways Reflection§r
-Summary: Enable aurora and ground reflection effect
+Summary: Realistic volumetric clouds style
+§cImportant! Some types of GPU do not support this clouds style§r
 '''
 
 [[subpack]]
@@ -42,6 +48,7 @@ define = "MULTILAYER_CLOUDS"
 materials = ["Clouds"]
 description = '''
 §9Multilayer Clouds§r
+
 Summary: Add more clouds layer
 '''
 
@@ -50,7 +57,8 @@ define = "SIMPLE_CLOUDS"
 materials = ["Clouds"]
 description = '''
 §3Simple Clouds§r
-Summary: Change to Simple Clouds
+
+Summary: Change to simple clouds style
 '''
 
 [[subpack]]
@@ -58,7 +66,26 @@ define = "VANILLA_CLOUDS"
 materials = ["Clouds"]
 description = '''
 §6Vanilla Clouds§r
-Summary: Change to Vanilla style Clouds
+
+Summary: Change to vanilla clouds style
+'''
+
+[[subpack]]
+define = "ALWAYS_REFLECTION"
+materials = ["RenderChunk"]
+description = '''
+§eAlways Reflection§r
+
+Summary: Enable aurora and ground reflection effect
+'''
+
+[[subpack]]
+define = "RAINBOWS"
+materials = ["Sky"]
+description = '''
+§4R§6a§ei§an§2b§1o§5w§ds§r
+
+Summary: Show rainbow effect on sky
 '''
 
 [[subpack]]
@@ -66,6 +93,7 @@ define = "NO_WAVE"
 materials = ["RenderChunk"]
 description = '''
 §aNo Wave§r
+
 Summary: No wave effect
 '''
 
@@ -74,5 +102,6 @@ define = "DEFAULT"
 materials = []
 description = '''
 Default
+
 Summary: Rounded clouds, wave effect and aurora at night
 '''

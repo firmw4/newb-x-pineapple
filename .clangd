@@ -16,3 +16,4 @@ Diagnostics:
     CheckOptions:
       readability-identifier-naming.VariableCase: camelBack
       readability-identifier-naming.FunctionCase: camelBack
+

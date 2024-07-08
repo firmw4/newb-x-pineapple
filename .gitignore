@@ -8,6 +8,7 @@ tool/__pycache__/
 venv
 
 # ignore files
+note.txt
 copy.sh
 *.bin
 *.py[cod]

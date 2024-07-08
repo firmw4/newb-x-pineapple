@@ -2,13 +2,13 @@ import os
 import shutil
 import json
 import tomllib
-import subprocess
 import platform
 from importlib import import_module
 from rich.console import Console
 from rich.status import Status
 from util import print_styled_error, get_materials_path, create_pack_manifest
 from lazurite.compiler.macro_define import MacroDefine
+from lazurite import util
 
 console = Console()
 status = console.status("[bold]")
@@ -20,6 +20,7 @@ if platform == 'nt':
 
 _current_subpack = "default"
 _last_log = ""
+_name = ""
 
 
 def _lp_print_override(m):
@@ -31,9 +32,42 @@ def _lp_print_override(m):
     _last_log = "  " + log + " - [green]success"
 
 
-# monkey patch print
+# monkey patch print and label
 lp = import_module('lazurite.project.project')
 lp.print = _lp_print_override
+
+
+def mlabel(
+    self,
+    material_name: str,
+    pass_name: str,
+    variant_index: int,
+    is_supported: bool,
+    flags: dict,
+):
+    global _name, _current_subpack
+
+    if not any(
+        self.platform.name.startswith(platform_prefix)
+        for platform_prefix in ["ESSL", "GLSL", "Metal"]
+    ):
+        return self
+
+    comment = (f"// {_name} ({_current_subpack})")
+    code = self.bgfx_shader.shader_bytes.decode()
+    code = util.insert_header_comment(code, comment)
+    self.bgfx_shader.shader_bytes = code.encode()
+
+    return self
+
+
+lp.ShaderDefinition.label = mlabel
+owrite = lp.Material.write
+
+
+def mwrite(self, file):
+    self.passes[0].label(self.name)
+    owrite(self, file)
 
 
 def _exit_with_error():
@@ -76,6 +110,8 @@ def _build(status: Status, profile: str, subpack: str, materials: [str], output_
 
 
 def run(args):
+    global _name
+
     lp.print = _lp_print_override
 
     console.print(" [bold green]Newb Pack Builder[/] \n [dim]build tool: Lazurite\n", style="")
@@ -91,11 +127,12 @@ def run(args):
 
     pack_name: str = pack_config['name']
     pack_version = f"{pack_config['version'][1]}.{pack_config['version'][2]}"
+    pack_authors = ', '.join(pack_config['authors'])
     profile: str = args.p
 
     console.print("~ Pack info", style="bold")
     console.print("  [dim]name    :", "[cyan]" + pack_name)
-    console.print("  [dim]authors :", "[cyan]" + ', '.join(pack_config['authors']))
+    console.print("  [dim]authors :", "[cyan]" + pack_authors)
     console.print("  [dim]version :", "[cyan]" + pack_version + "\n")
 
     console.print("~ Build target", style="bold")
@@ -128,6 +165,10 @@ def run(args):
 
     status.start()
 
+    if not args.no_label:
+        _name = pack_name + " v" + pack_version
+        lp.Material.write = mwrite
+
     _build(status, args.p, "default", pack_config['materials'], mats_dir)
 
     for subpack in pack_config['subpack']:
@@ -158,6 +199,16 @@ def run(args):
 
     with open(os.path.join(pack_dir, 'manifest.json'), 'w') as f:
         json.dump(pack_manifest, f, indent=2)
+
+    pack_copyright: str = pack_config['info']['copyright']
+    pack_copyright = pack_copyright.replace("%a", pack_authors)
+    with open(os.path.join(pack_dir, 'COPYRIGHT.txt'), 'w') as f:
+        f.write(pack_copyright)
+
+    pack_credits = pack_config['info']['credits']
+    if pack_credits:
+        with open(os.path.join(pack_dir, 'CREDITS.txt'), 'w') as f:
+            f.write(pack_credits)
 
     if not args.no_zip:
         pack_archive = os.path.join('build', pack_acr_name + ('.zip' if is_ios else '.mcpack'))

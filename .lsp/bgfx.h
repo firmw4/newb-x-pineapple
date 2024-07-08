@@ -235,3 +235,4 @@ uniform mat4 u_invView;
 uniform mat4 u_view;
 
 #define SAMPLER2D(_sampler, _reg) uniform sampler2D _sampler;
+

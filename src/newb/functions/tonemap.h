@@ -26,6 +26,12 @@ vec3 colorCorrection(vec3 col) {
   #elif NL_TONEMAP_TYPE == 1
     // exponential tonemap
     col = 1.0-exp(-col*0.8);
+  #elif NL_TONEMAP_TYPE == 0
+    // For testing, customizable
+    // Mantiuk Tonemapping
+    const float luminance = 0.4;
+    col *= dot(col, vec3(0.2126, 0.7152, 0.0722));
+    col *= 1.0 * col / luminance;
   #endif
 
   // gamma correction + contrast

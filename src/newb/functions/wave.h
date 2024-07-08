@@ -99,8 +99,8 @@ void nlWave(
 
   // darken plants bottom - better to not move it elsewhere
   light *= isFarmPlant && !isTop ? 0.7 : 1.1;
-  if (isColored && !isTreeLeaves && uv0.y>0.43 && uv0.y<0.48) {
-    light *= isTop ? NL_DARKEN_PLANT_BOTTOM : NL_DARKEN_PLANT_BOTTOM - 1.2*(bPos.y>0.0 ? 1.5-bPos.y : 0.5);
+  if (isColored && !isTreeLeaves && uv0.y>0.406 * 0.5 && uv0.y<0.532 * 0.5) {
+    light *= isTop ? 1.2 : 1.2 - NL_DARKEN_PLANT_BOTTOM*(bPos.y>0.0 ? 1.5-bPos.y : 0.5);
   }
 
 #ifdef NL_PLANTS_WAVE
