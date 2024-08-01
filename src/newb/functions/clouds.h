@@ -141,7 +141,7 @@ float cloudDf(vec3 pos, float rain) {
   vec2 u = smoothstep(0.999*NL_CLOUD2_SHAPE, 1.0, pos.xz-p0);
   
   // rain transition
-  vec2 t = vec2(0.1001+0.2*rain, 0.1+0.2*rain*rain);
+  vec2 t = vec2(0.3001+0.2*rain, 0.2999+0.2*rain*rain);
 
   float n = mix(
     mix(randt(p0, t),randt(p0+vec2(1.0,0.0), t), u.x),
@@ -200,10 +200,10 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
 // add custom cloud tint
   float night = smoothstep(0.3, 0.1, fogCol.r);
   float dusk = smoothstep(1.0, 0.0, fogCol.b)*(1.0 - night);
-  vec3 cloudTint = mix(mix(vec3(0.42,0.61,0.82), vec3(0.7,0.417,0.3), dusk), vec3(0.0,0.021,0.08), night);
+  vec3 cloudTint = mix(mix(vec3(0.42,0.61,0.82), vec3(1.6,0.45,0.14), dusk), vec3(0.0,0.021,0.08), night);
 
-  //vec4 col = vec4((cloudTint*1.4), d.x*0.6);
-  vec4 col = vec4(skyCol*1.2, d.x*0.8);
+  vec4 col = vec4((cloudTint*1.4), d.x*0.6);
+  //vec4 col = vec4(skyCol*1.2, d.x*0.8);
   col.rgb += rain + fogCol*d.y;
   col.rgb *= 1.0 - 0.7*rain;
 
@@ -231,6 +231,7 @@ vec4 renderAurora(vec3 p, float t, float rain, vec3 FOG_COLOR) {
 
   // Modify fade mask for more subtle blending
   float fadeMask = 1.0 / (1.0 + 48.0 * FOG_COLOR.b * FOG_COLOR.b);
+  //float fadeMask = (1.0-0.8*rain)*max(1.0 - 4.0*max(FOG_COLOR.b, FOG_COLOR.g), 0.0);
 
   // Blend colors dynamically for a more vibrant aurora
   return vec4(NL_AURORA * mix(mix(NL_AURORA_COL1, NL_AURORA_COL2, wave1), NL_AURORA_COL3, wave2), 1.0) * wave3 * fadeMask;

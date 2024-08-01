@@ -7,10 +7,22 @@ on:
         description: 'Sub-version (eg: 46)'
         required: true
         type: string
+      platform:
+        description: 'platform'
+        required: true
+        default: 'All'
+        type: choice
+        options:
+        - Android
+        - Windows
+        - IOS
+        - Merged
+        - All
 
 jobs:
   windows:
     runs-on: windows-2022
+    if:  ${{ (github.event.inputs.platform == 'Windows') || (github.event.inputs.platform == 'All') }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/cache@v4
@@ -28,10 +40,11 @@ jobs:
         .\build.bat pack -p windows -v ${{ inputs.subversion }} --no-zip
     - uses: actions/upload-artifact@v4
       with:
-        name: newb-x-windows
+        name: nxp-windows
         path: ./build/pack-windows
   android:
     runs-on: ubuntu-latest
+    if:  ${{ (github.event.inputs.platform == 'Android') || (github.event.inputs.platform == 'All') }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/cache@v4
@@ -49,10 +62,11 @@ jobs:
         ./build.sh pack -p android -v ${{ inputs.subversion }} --no-zip
     - uses: actions/upload-artifact@v4
       with:
-        name: newb-x-android
+        name: nxp-android
         path: ./build/pack-android
   ios:
     runs-on: ubuntu-latest
+    if:  ${{ (github.event.inputs.platform == 'IOS') || (github.event.inputs.platform == 'All') }}
     steps:
     - uses: actions/checkout@v4
       with:
@@ -72,10 +86,11 @@ jobs:
         ./build.sh pack -p ios -v ${{ inputs.subversion }} --no-zip
     - uses: actions/upload-artifact@v4
       with:
-        name: newb-x-ios
+        name: nxp-ios
         path: ./build/pack-ios
   merged:
     runs-on: windows-2022
+    if:  ${{ (github.event.inputs.platform == 'Merged') || (github.event.inputs.platform == 'All')}}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/cache@v4
@@ -93,5 +108,5 @@ jobs:
         .\build.bat pack -p merged -v ${{ inputs.subversion }} --no-zip
     - uses: actions/upload-artifact@v4
       with:
-        name: newb-x-merged
+        name: nxp-merged
         path: ./build/pack-merged
