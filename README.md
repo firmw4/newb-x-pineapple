@@ -1,6 +1,6 @@
-# Newb Renewed
+# Newb X Pineapple
 
-**Newb Renewed** is a RenderDragon successor to the legacy GLSL shader, [Newb Shader](https://github.com/devendrn/newb-shader-mcbe). An aesthetic shader with soft lighting and better fog. It supports Minecraft Bedrock 1.21 (Windows/Android/*iOS).
+**Newb X Pineapple** is a RenderDragon successor to the legacy GLSL shader, [Newb Shader](https://github.com/devendrn/newb-shader-mcbe). An aesthetic shader with soft lighting and better fog. It supports Minecraft Bedrock 1.21 (Windows/Android/*iOS).
 
 > [!WARNING]
 > This is an experimental repository, breaking changes are made often.

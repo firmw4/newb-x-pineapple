@@ -15,8 +15,8 @@ long = '''
 short = "Legacy port of Newb Shader for RenderDragon"
 
 [uuid] # Use https://www.uuidgenerator.net/version4
-header = "e65a32bc-b0aa-4ac0-9d5c-f4f8ba62c3aa"
-module = "fecd06fa-2960-46af-9fa9-bd0ff8a34c5e"
+header = "12d4ea4a-7439-4969-b936-9ad0d511d7d1"
+module = "8e745b9f-ec80-45c1-bdc3-578ab7cbd4b6"
 
 [info]
 # %a = authors

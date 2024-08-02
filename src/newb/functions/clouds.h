@@ -65,7 +65,7 @@ float bevel(float x, float r) {
   return r+sqrt(1.0-2.0*r+r*r-y*y);
 }
 
-#ifdef NL_3DNOISE
+#ifdef NLC_3DNOISE
 // rounded clouds 3D density map
 float cloudDf(vec3 pos, float rain) {
   pos.x += 0.64*noise(6.0*pos.xz);
@@ -80,7 +80,7 @@ float cloudDf(vec3 pos, float rain) {
   vec2 v = 1.0 - u;
 
   // rain transition
-  vec2 t = vec2(0.3001+0.2*rain, 0.2999+0.2*rain*rain);
+  vec2 t = vec2(NLC_CLOUD2_AMOUNT1+0.1001+0.2*rain, NLC_CLOUD2_AMOUNT2+0.1+0.2*rain*rain);
 
   // mix noise gradients
   float n = v.y*(randt(p0,t)*v.x + randt(p0+vec2(1.0,0.0),t)*u.x) +
@@ -126,8 +126,8 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
   float dusk = smoothstep(1.0, 0.0, fogCol.b)*(1.0 - night);
   vec3 cloudTint = mix(mix(vec3(0.32,0.34,0.42), vec3(0.63,0.417,0.3), dusk), vec3(0.05,0.071,0.1), night);
 
-  vec4 col = vec4((cloudTint*1.4), d.x*0.6);
-  //vec4 col = vec4(skyCol*1.2, d.x*0.8);
+  vec4 col = vec4((cloudTint*1.4), d.x*NLC_CLOUD2_OPACITY);
+  //vec4 col = vec4(skyCol*1.2, d.x*NLC_CLOUD2_OPACITY);
   col.rgb += rain + fogCol*d.y;
   col.rgb *= 1.0 - 0.73*rain;
 
@@ -202,8 +202,8 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
   float dusk = smoothstep(1.0, 0.0, fogCol.b)*(1.0 - night);
   vec3 cloudTint = mix(mix(vec3(0.42,0.61,0.82), vec3(1.6,0.45,0.14), dusk), vec3(0.0,0.021,0.08), night);
 
-  vec4 col = vec4((cloudTint*1.4), d.x*0.6);
-  //vec4 col = vec4(skyCol*1.2, d.x*0.8);
+  vec4 col = vec4((cloudTint*1.4), d.x*NLC_CLOUD2_OPACITY);
+  //vec4 col = vec4(skyCol*1.2, d.x*NLC_CLOUD2_OPACITY);
   col.rgb += rain + fogCol*d.y;
   col.rgb *= 1.0 - 0.7*rain;
 
@@ -214,6 +214,21 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
 
 // aurora is rendered on clouds layer
 #ifdef NL_AURORA
+vec4 renderAurora(vec3 p, float t, float rain, vec3 FOG_COLOR) {
+  t *= NL_AURORA_VELOCITY;
+  p.xz *= NL_AURORA_SCALE;
+  p.xz += 0.05*sin(p.x*4.0 + 20.0*t);
+
+  float d0 = sin(p.x*0.1 + t + sin(p.z*0.2));
+  float d1 = sin(p.z*0.1 - t + sin(p.x*0.2));
+  float d2 = sin(p.z*0.1 + 1.0*sin(d0 + d1*2.0) + d1*2.0 + d0*1.0);
+  d0 *= d0; d1 *= d1; d2 *= d2;
+  d2 = d0/(1.0 + d2/NL_AURORA_WIDTH);
+
+  float mask = (1.0-0.8*rain)*max(1.0 - 4.0*max(FOG_COLOR.b, FOG_COLOR.g), 0.0);
+  return vec4(NL_AURORA*mix(NL_AURORA_COL1,NL_AURORA_COL2,d1),1.0)*d2*mask;
+}
+/*
 vec4 renderAurora(vec3 p, float t, float rain, vec3 FOG_COLOR) {
   p.xz *= NL_AURORA_SCALE;
   t *= NL_AURORA_VELOCITY;
@@ -230,12 +245,12 @@ vec4 renderAurora(vec3 p, float t, float rain, vec3 FOG_COLOR) {
   wave3 = wave1 / (1.0 + wave3 * wave4 / NL_AURORA_WIDTH);
 
   // Modify fade mask for more subtle blending
-  float fadeMask = 1.0 / (1.0 + 48.0 * FOG_COLOR.b * FOG_COLOR.b);
-  //float fadeMask = (1.0-0.8*rain)*max(1.0 - 4.0*max(FOG_COLOR.b, FOG_COLOR.g), 0.0);
+  float fadeMask = (1.0-0.8*rain) / (1.0 + 48.0 * FOG_COLOR.b * FOG_COLOR.b, 0.0);
 
   // Blend colors dynamically for a more vibrant aurora
-  return vec4(NL_AURORA * mix(mix(NL_AURORA_COL1, NL_AURORA_COL2, wave1), NL_AURORA_COL3, wave2), 1.0) * wave3 * fadeMask;
+  return vec4(NL_AURORA * mix(mix(NL_AURORA_COL1, NL_AURORA_COL2, wave1), NLC_AURORA_COL3, wave2), 1.0) * wave3 * fadeMask;
 }
+*/
 #endif
 
 #endif

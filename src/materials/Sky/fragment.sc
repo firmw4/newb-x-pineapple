@@ -10,11 +10,11 @@ highp float hashS(highp vec2 x){
 }
 
 highp float star(highp vec2 x, float time){
-  x = mul(x, mtxFromCols(vec2(cos(0.9), sin(0.9)), vec2(sin(0.9), -cos(0.9))));
-  x.y += time*42.0;
+  x *= mat2(cos(0.9), -sin(0.9), sin(0.9), cos(0.9));
+  //x = mul(x, mtxFromCols(vec2(cos(0.9), sin(0.9)), vec2(sin(0.9), -cos(0.9))));
+  x.y += time*12.0;
   
   highp float shape = (1.0-length(fract(x-vec2(0,0.5))-0.5));
-    
   x *= vec2(1,0.1);
     
   highp vec2 fr = fract(x);
@@ -54,7 +54,7 @@ void main() {
     vec3 skyColor = nlRenderSky(horizonEdgeCol, horizonCol, zenithCol, -viewDir, v_fogColor, v_underwaterRainTime.z, rainFactor, false, underWater, false)*1.0;
     skyColor = colorCorrection(skyColor);
     
-    skyColor += pow(vec3_splat(star(sPos.zx*95.0, v_underwaterRainTime.z))*1.1, vec3(14, 9, 4))*mask;
+    skyColor += pow(vec3_splat(star(sPos.zx*100.0, v_underwaterRainTime.z))*1.1, vec3(8.0, 6.0, 2.0))*mask;
     
     gl_FragColor = vec4(skyColor, 1.0);
   #else
