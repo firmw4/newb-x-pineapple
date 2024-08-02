@@ -9,7 +9,9 @@
 
 ## Downloads
 
-Nightly builds for Android (ESSL) and Windows (DX) can be found at the [Discord server](https://discord.gg/newb-community-844591537430069279).
+Nightly builds for Android (ESSL) and Windows (DX) can be found at the:
+[Secret Society](https://discord.com/invite/chM7qTrGJT)
+[Newb Community](https://discord.com/invite/newb-community-844591537430069279)
 
 ## Installation
 
