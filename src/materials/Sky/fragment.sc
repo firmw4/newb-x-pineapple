@@ -10,8 +10,8 @@ highp float hashS(highp vec2 x){
 }
 
 highp float star(highp vec2 x, float time){
-  x *= mat2(cos(0.9), -sin(0.9), sin(0.9), cos(0.9));
-  //x = mul(x, mtxFromCols(vec2(cos(0.9), sin(0.9)), vec2(sin(0.9), -cos(0.9))));
+  //x *= mat2(cos(0.9), -sin(0.9), sin(0.9), cos(0.9));
+  x = mul(x, mtxFromCols(vec2(cos(0.9), sin(0.9)), vec2(sin(0.9), -cos(0.9))));
   x.y += time*12.0;
   
   highp float shape = (1.0-length(fract(x-vec2(0,0.5))-0.5));
