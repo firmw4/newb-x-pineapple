@@ -5,7 +5,7 @@
 > [!WARNING]
 > This is an experimental repository, breaking changes are made often.
 
-![Screenshots](docs/screenshots_nr.jpg "Newb Renewed")
+![Screenshots](docs/screenshots_nxp.jpg "Newb X Pineapple")
 
 ## Downloads
 
