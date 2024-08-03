@@ -18,8 +18,8 @@ float nlRenderFogFade(float relativeDist, vec3 FOG_COLOR, vec2 FOG_CONTROL) {
   #endif
 
   // misty effect
-  float density = NL_MIST_DENSITY*(19.0 - 18.0*FOG_COLOR.g);
-  fade += (1.0-fade)*(0.3-0.3*exp(-relativeDist*relativeDist*density));
+  float density = NL_MIST_DENSITY*(21.0 - 20.0*FOG_COLOR.g);
+  fade += (1.0-fade)*(0.4-0.3*exp(-relativeDist*relativeDist*density));
 
   return fade;
 }

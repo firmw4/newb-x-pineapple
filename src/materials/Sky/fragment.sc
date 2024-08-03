@@ -33,9 +33,9 @@ void main() {
     vec3 viewDir = normalize(v_worldPos);
     bool underWater = v_underwaterRainTime.x > 0.5;
     float rainFactor = v_underwaterRainTime.y;
-    
+
     float mask = (1.0-1.0*rainFactor)*max(1.0 - 3.0 * max(v_fogColor.b, v_fogColor.g), 0.0);
-    
+
     vec3 zenithCol;
     vec3 horizonCol;
     vec3 horizonEdgeCol;
@@ -55,7 +55,7 @@ void main() {
     skyColor = colorCorrection(skyColor);
     
     skyColor += pow(vec3_splat(star(sPos.zx*100.0, v_underwaterRainTime.z))*1.1, vec3(8.0, 6.0, 2.0))*mask;
-    
+
     gl_FragColor = vec4(skyColor, 1.0);
   #else
     gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);

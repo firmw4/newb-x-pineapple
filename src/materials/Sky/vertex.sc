@@ -20,6 +20,7 @@ void main() {
 
     // make sky curved
     pos.y -= 0.4*a_color0.r*a_color0.r;
+
     vec3 sposv = pos.xyz;
     sposv += 0.148;
 
@@ -29,7 +30,9 @@ void main() {
 
     v_fogColor = FogColor.rgb;
     v_worldPos = mul(u_model[0], vec4(pos, 1.0)).xyz;
+
     sPos = sposv;
+
     gl_Position = mul(u_modelViewProj, vec4(pos, 1.0));
   #else
     gl_Position = vec4(0.0, 0.0, 0.0, 0.0);

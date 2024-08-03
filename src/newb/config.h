@@ -55,8 +55,8 @@
 #define NL_NIGHT_SUN_COL	    vec3(0.6,0.67,0.92)
 
 /* Ambient light on terrain (light that is added everywhere) */
-#define NL_NETHER_AMBIENT       vec3(0.592,0.427,0.512)//vec3(3.0,2.16,1.89)
-#define NL_END_AMBIENT          vec3(0.753,0.424,0.982)//vec3(1.98,1.25,2.3)
+#define NL_NETHER_AMBIENT       vec3(0.492,0.327,0.412)//vec3(3.0,2.16,1.89)
+#define NL_END_AMBIENT          vec3(0.453,0.124,0.682)//vec3(1.98,1.25,2.3)
 
 /* Torch colors */
 #define NL_OVERWORLD_TORCH_COL		vec3(1.25,0.42,0.16)
@@ -66,8 +66,8 @@
 
 /* Fog */
 #define NL_FOG_TYPE             2       // 0:no fog, 1:vanilla, 2:smoother vanilla
-#define NL_MIST_DENSITY         1.36    // 0.0 no mist ~ 1.0 misty
-#define NL_RAIN_MIST_OPACITY    0.3     // [toggle] 0.04 very subtle ~ 0.5 thick mist blow
+#define NL_MIST_DENSITY         2.63    // 0.0 no mist ~ 1.0 misty
+#define NL_RAIN_MIST_OPACITY    0.41     // [toggle] 0.04 very subtle ~ 0.5 thick mist blow
 
 /* Sky colors - zenith=top, horizon=bottom */
 
@@ -97,10 +97,9 @@
 #define NL_GLOW_SHIMMER		    0.9     // [toggle] shimmer effect
 #define NL_GLOW_LEAK		    0.5     // [toggle] 0.08 subtle ~ 1.0 100% brightness of NL_GLOW_TEX
 
-/* Waving */
 #define NL_PLANTS_WAVE          0.08    // [toggle] 0.02 gentle ~ 0.4 violent
 #define NL_LANTERN_WAVE         0.06    // [toggle] 0.05 subtle ~ 0.4 large swing
-#define NL_WAVE_SPEED           0.88     // 0.5 slow wave ~ 5.0 very fast wave
+#define NL_WAVE_SPEED           1.88     // 0.5 slow wave ~ 5.0 very fast wave
 #define NL_EXTRA_PLANTS_WAVE          // [toggle] !dont use! wave using texture coords (1.20.40 vanilla)
 
 /* Water */
@@ -200,6 +199,13 @@
   #undef NL_EXTRA_PLANTS_WAVE
 #endif
 
+#ifdef NIGHT_VISION
+  #undef NL_NIGHT_BRIGHTNESS
+  #undef NL_CAVE_BRIGHTNESS
+  #define NL_NIGHT_BRIGHTNESS   3.0
+  #define NL_CAVE_BRIGHTNESS    2.0
+#endif
+
 #ifdef RAINBOWS
   #define NL_RAINBOW
 #endif
@@ -240,6 +246,11 @@
   #define NL_CLOUD2_DENSITY             4.0
   #define NL_AURORA_SCALE               0.09
   #define NL_3DNOISE
+#endif
+
+#ifdef AR_VC
+  #define VOLUMETRIC_CLOUDS
+  #define ALWAYS_REFLECTION
 #endif
 
 /* ------ SUBPACK CONFIG ENDS HERE -------- */

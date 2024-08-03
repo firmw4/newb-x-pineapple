@@ -1,8 +1,9 @@
 name = "§lNewb X §6Pineapple§r"
 version = [0, 2, 0]
-url = "https://firmw4.vercel.app/"
+url = "https://firmw4.vercel.app/newb-x-pineapple"
 authors = ["devendrn", "firmw4"]
 min_supported_mc_version = [1, 20, 80]
+
 materials = ["Sky", "LegacyCubemap", "Clouds", "EndSky", "SunMoon", "RenderChunk", "Actor"]
 
 [description]
@@ -29,9 +30,20 @@ credits = '''
 devendrn, firmw4
 '''
 
+
 # subpacks are arranged in left to right order
 # right-most subpack is enabled by default
 
+
+[[subpack]]
+define = "AR_VC"
+materials = ["Clouds"]
+description = '''
+§4Always Reflection & Volumetric Clouds§r
+
+Summary: Always ground reflection effect and volumetric clouds style
+§cImportant! Some types of GPU do not support this clouds style§r
+'''
 
 [[subpack]]
 define = "VOLUMETRIC_CLOUDS"
@@ -89,12 +101,21 @@ Summary: Show rainbow effect on sky
 '''
 
 [[subpack]]
+define = "NIGHT_VISION"
+materials = ["RenderChunk"]
+description = '''
+§eNight Vision§r
+
+Summary: Bright at night
+'''
+
+[[subpack]]
 define = "NO_WAVE"
 materials = ["RenderChunk"]
 description = '''
 §aNo Wave§r
 
-Summary: No wave effect
+Summary: Disable wave effect
 '''
 
 [[subpack]]
