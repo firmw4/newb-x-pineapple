@@ -1,58 +1,52 @@
-name = "§lNewb X §6Pineapple§r"
-version = [0, 2, 0]
-url = "https://firmw4.vercel.app/newb-x-pineapple"
-authors = ["devendrn", "firmw4"]
+name = "Newb X §6Pineapple"
+version = [0, 3, 0]
 min_supported_mc_version = [1, 20, 80]
-
-materials = ["Sky", "LegacyCubemap", "Clouds", "EndSky", "SunMoon", "RenderChunk", "Actor"]
-
-[description]
-# %w = patch warning, %v = version
-long = '''
+description = '''
 §7An aesthetic shader with a chill color theme§r
 %v
 §c%w
-'''
-short = "Legacy port of Newb Shader for RenderDragon"
+''' # %w = patch warning, %v = version
+authors = ["devendrn", "firmw4"]
+url = "https://devendrn.github.io/newb-shader/"
+uuid = "12d4ea4a-7439-4969-b936-9ad0d511d7d1" # Use https://www.uuidgenerator.net/version4
+materials = ["Sky", "LegacyCubemap", "Clouds", "EndSky", "SunMoon", "RenderChunk", "Actor"]
 
-[uuid] # Use https://www.uuidgenerator.net/version4
-header = "12d4ea4a-7439-4969-b936-9ad0d511d7d1"
-module = "8e745b9f-ec80-45c1-bdc3-578ab7cbd4b6"
-
-[info]
-# %a = authors
+[info] 
 copyright = '''
 Copyright (c) %a
 
 **Important Note:** Redistribution of this resource pack with links other than the official ones provided by the creator is strictly prohibited.
-'''
+''' # %a = authors
 credits = '''
-devendrn, firmw4
 '''
 
+[custom]
+label = '''
+Recommended set brightness to 30-40
+Don't use experimental features and education mode (or some bugs will occur)
+Disable Vsync for better performance
+Use ESSL100 pack by mrwang  for Snapdragon devices to reduce sutter and lag
+§csome devices specifically experience a bug in rounded clouds§r
+
+§cRedistribution of this resource pack with links other than the official ones provided by the creator is strictly prohibited.§r
+
+§lThanks for downloading and using this shader :)§r
+'''
+input = '''
+'''
 
 # subpacks are arranged in left to right order
 # right-most subpack is enabled by default
 
 
 [[subpack]]
-define = "AR_VC"
-materials = ["Clouds"]
+define = "ULTRA"
+materials = ["RenderChunk", "Clouds"]
 description = '''
-§4Always Reflection & Volumetric Clouds§r
+§4Ultra Pack§r
 
-Summary: Always ground reflection effect and volumetric clouds style
-§cImportant! Some types of GPU do not support this clouds style§r
-'''
-
-[[subpack]]
-define = "VOLUMETRIC_CLOUDS"
-materials = ["Clouds"]
-description = '''
-§4Volumetric Clouds§r
-
-Summary: Realistic volumetric clouds style
-§cImportant! Some types of GPU do not support this clouds style§r
+Summary: Realistic clouds style, always reflection and aurora reflection 
+§cImportant! Some devices with certain GPUs are not compatible with this cloud style§r
 '''
 
 [[subpack]]
@@ -61,34 +55,34 @@ materials = ["Clouds"]
 description = '''
 §9Multilayer Clouds§r
 
-Summary: Add more clouds layer
+Summary: Rounded clouds with extra one layer
+'''
+
+[[subpack]]
+define = "ROUNDED_CLOUDS"
+materials = ["Clouds"]
+description = '''
+§bRounded Clouds§r
+
+Summary: Change to rounded clouds style
 '''
 
 [[subpack]]
 define = "SIMPLE_CLOUDS"
 materials = ["Clouds"]
 description = '''
-§3Simple Clouds§r
+§6Simple Clouds§r
 
 Summary: Change to simple clouds style
-'''
-
-[[subpack]]
-define = "VANILLA_CLOUDS"
-materials = ["Clouds"]
-description = '''
-§6Vanilla Clouds§r
-
-Summary: Change to vanilla clouds style
 '''
 
 [[subpack]]
 define = "ALWAYS_REFLECTION"
 materials = ["RenderChunk"]
 description = '''
-§eAlways Reflection§r
+§3Always Reflection§r
 
-Summary: Enable aurora and ground reflection effect
+Summary: Always reflection on ground effect
 '''
 
 [[subpack]]
@@ -106,7 +100,7 @@ materials = ["RenderChunk"]
 description = '''
 §eNight Vision§r
 
-Summary: Bright at night
+Summary: Full bright at night
 '''
 
 [[subpack]]
@@ -124,5 +118,5 @@ materials = []
 description = '''
 Default
 
-Summary: Rounded clouds, wave effect and aurora at night
+Summary: Vanilla clouds, wave effect and aurora at night
 '''

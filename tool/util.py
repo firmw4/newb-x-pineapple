@@ -36,17 +36,22 @@ def create_pack_manifest(config: dict) -> dict:
         'format_version': 2,
         'header': {
             "name": config['name'],
-            "description": config['description']['long'],
-            "uuid": config['uuid']['header'],
+            "description": config['description'],
+            "uuid": config['uuid'],
             "version": config['version'],
             "min_engine_version": config['min_supported_mc_version']
         },
         'modules': [
             {
-                'description': config['description']['short'],
                 'type': 'resources',
-                'uuid': config['uuid']['module'],
+                'uuid': '8e745b9f-ec80-45c1-bdc3-578ab7cbd4b6',
                 'version': config['version']
+            }
+        ],
+        'settings': [
+            {
+                'type': 'label',
+                'text': config['custom']['label']
             }
         ],
         'subpacks': [],
