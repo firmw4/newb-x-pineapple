@@ -56,7 +56,7 @@ vec3 colorCorrectionInv(vec3 col) {
   // incomplete
   // extended reinhard only
   float ws = 0.7966;
-  col = pow(col, vec3_splat(1.0/NL_CONSTRAST));
+  col = pow(col, vec3_splat(1.0/NL_CONTRAST));
   col = col*(ws + col)/(ws + col*(1.0 - ws));
 
   #ifdef NL_EXPOSURE
