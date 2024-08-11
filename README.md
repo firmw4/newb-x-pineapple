@@ -1,21 +1,14 @@
 # Newb X Pineapple
 
-<<<<<<< HEAD
-**Newb X Legacy** is a RenderDragon successor to the legacy GLSL shader, [Newb Shader](https://github.com/devendrn/newb-shader-mcbe). It is an enhanced vanilla shader that focuses on being lightweight and having soft aesthetics. It supports Minecraft Bedrock 1.21+ (Windows/Android/iOS).
-=======
-**Newb X Pineapple** is a RenderDragon successor to the legacy GLSL shader, [Newb Shader](https://github.com/devendrn/newb-shader-mcbe). An aesthetic shader with soft lighting and better fog. It supports Minecraft Bedrock 1.21 (Windows/Android/*iOS).
->>>>>>> pineapple
+**Newb X Pineapple** is a RenderDragon successor to the legacy GLSL shader, [Newb Shader](https://github.com/devendrn/newb-shader-mcbe). It is an enhanced vanilla shader that focuses on being lightweight and having soft aesthetics. It supports Minecraft Bedrock 1.21+ (Windows/Android/iOS).
 
 > [!WARNING]
 > This is an experimental repository, breaking changes are made often.
 
-<<<<<<< HEAD
-![Screenshots](docs/screenshots.jpg "Newb X Legacy 15.47, MCBE 1.21.0")
+![Screenshots](docs/screenshots_nxp.jpg "Newb X Pineapple 3.0, MCBE 1.21.0")
 
 <br>
-=======
-![Screenshots](docs/screenshots_nxp.jpg "Newb X Pineapple")
->>>>>>> pineapple
+
 
 ## Downloads
 
@@ -30,16 +23,9 @@ You can also download from [v15-dev releases](https://github.com/devendrn/newb-x
 > [!NOTE]
 > Shaders are not officially supported on Minecraft Bedrock. The following are unofficial ways to load shaders.
 
-<<<<<<< HEAD
 **Linux / Mac:** For [mcpelauncher-manifest](https://mcpelauncher.readthedocs.io/en/latest/getting_started/index.html) only
 1. Download [mcpelauncher-shadersmod](https://github.com/GameParrot/mcpelauncher-shadersmod/releases/latest).
 2. Follow this [guide](https://faizul118.github.io/guides/shadersmodinstallation) to setup.
-=======
-**Linux:** [mcpelauncher-manifest](https://github.com/minecraft-linux/mcpelauncher-ui-manifest)
-1. Extract material.bin files from shader mcpack / build materials from source.
-2. Move these files to data root `mcpelauncher/versions/1.20.x/assets/renderer/materials/`. (Make sure to backup all files in this folder first)
-3. Import the resource pack and activate it in global resources.
->>>>>>> pineapple
 
 **Windows:**
 1. Use [BetterRenderDragon](https://github.com/ddf8196/BetterRenderDragon) to enable MaterialBinLoader.
@@ -56,13 +42,9 @@ You can also download from [v15-dev releases](https://github.com/devendrn/newb-x
 ### Install dependencies
 - [Git](https://git-scm.com/)
 - [Python](https://www.python.org/) 3.11 or higher required
-<<<<<<< HEAD
 - Python packages:
   - [lazurite](https://veka0.github.io/lazurite/#installation) (must be v0.2.1. newer or older version may not be supported)
   - [rich](https://rich.readthedocs.io/en/stable/introduction.html#installation) (must be v13.x.x)
-=======
-- Python packages [lazurite](https://veka0.github.io/lazurite/#installation) and [rich](https://rich.readthedocs.io/en/stable/introduction.html#installation)
->>>>>>> pineapple
 
 ### Get source code
 ```
@@ -112,11 +94,8 @@ options:
   --no-label            don't label materials
   -v V                  version number eg: 46
 ```
-<<<<<<< HEAD
 
 <br>
-=======
->>>>>>> pineapple
 
 ## Development
 
