@@ -4,12 +4,12 @@ $output v_color0, v_pos, v_time
 #include <bgfx_shader.sh>
 
 #ifndef INSTANCING
-uniform mat4 u_model[4];
 uniform vec4 ViewPositionAndTime;
 #endif
 
 void main() {
 #ifndef INSTANCING
+  mat4 model = u_model[0];
   vec3 pos = a_position;
   vec3 worldPos = (u_model[0] * vec4(pos, 1.0)).xyz;
   v_color0 = a_color0;
