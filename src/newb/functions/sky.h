@@ -87,7 +87,7 @@ vec3 getSunBloom(float viewDirX, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
   float sunBloom = spread*spread;
   sunBloom = 0.5*spread + sunBloom*sunBloom*sunBloom*1.5;
 
-  vec3 b = mix(vec3(0.0,0.0,0.0), NL_MORNING_SUN_COL, sunBloom);
+  vec3 b = mix(vec3(0.0,0.0,0.0), vec3(0.82,0.51,0.94), sunBloom);
 
   return 0.8*(b*factor*factor);
 }
@@ -112,7 +112,7 @@ vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {
 
   vec3 sky = mix(zenithCol, horizonCol, f*f);
 
-  vec3 additionalColor = vec3(0.4, 0.3, 0.6);
+  vec3 additionalColor = vec3(0.32, 0.4, 0.84);
   sky += (0.1*streaks + 2.0*g*g*g + h*h*h) * additionalColor;
 
   sky += 0.25*streaks*additionalColor;
