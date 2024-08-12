@@ -4,7 +4,8 @@ $output v_color0, v_pos, v_time
 #include <bgfx_shader.sh>
 
 #ifndef INSTANCING
-  uniform vec4 ViewPositionAndTime;
+uniform mat4 u_model[4];
+uniform vec4 ViewPositionAndTime;
 #endif
 
 void main() {
