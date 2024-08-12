@@ -4,25 +4,6 @@
 
 #include <bgfx_shader.sh>
 
-// falling stars, code by i11212
-highp float hashS(highp vec2 x){
-  return fract(sin(dot(x,vec2(10,47)))*4e3);
-}
-
-highp float star(highp vec2 x, float time){
-  //x *= mat2(cos(0.9), -sin(0.9), sin(0.9), cos(0.9));
-  x = mul(x, mtxFromCols(vec2(cos(0.9), sin(0.9)), vec2(sin(0.9), -cos(0.9))));
-  x.y += time*12.0;
-  
-  highp float shape = (1.0-length(fract(x-vec2(0,0.5))-0.5));
-  x *= vec2(1,0.1);
-    
-  highp vec2 fr = fract(x);
-  highp float random = step(hashS(floor(x)),0.01), tall = (1.0-(abs(fr.x-0.5)+fr.y*0.5))*random;
-    
-  return clamp(clamp((shape-random)*step(hashS(floor(x+vec2(0,0.05))),.01),0.0,1.0)+tall,0.0,1.0);
-}
-
 #ifndef INSTANCING
   #include <newb/main.sh>
   uniform vec4 FogAndDistanceControl;
@@ -33,7 +14,6 @@ void main() {
     vec3 viewDir = normalize(v_worldPos);
     bool underWater = v_underwaterRainTime.x > 0.5;
     float rainFactor = v_underwaterRainTime.y;
-
     float mask = (1.0-1.0*rainFactor)*max(1.0 - 3.0 * max(v_fogColor.b, v_fogColor.g), 0.0);
 
     vec3 zenithCol;

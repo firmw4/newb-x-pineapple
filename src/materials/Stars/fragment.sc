@@ -3,7 +3,9 @@ $input v_color0, v_worldPos, v_time
 #include <bgfx_shader.sh>
 
 #ifndef INSTANCING
-uniform vec4 StarsColor;
+  #include <newb/main.sh>
+
+  uniform vec4 StarsColor;
 #endif
 
 void main() {

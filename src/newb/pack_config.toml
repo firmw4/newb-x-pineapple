@@ -9,7 +9,7 @@ description = '''
 authors = ["devendrn", "firmw4"]
 url = "https://devendrn.github.io/newb-shader/"
 uuid = "12d4ea4a-7439-4969-b936-9ad0d511d7d1" # Use https://www.uuidgenerator.net/version4
-materials = ["Stars", "Sky", "LegacyCubemap", "Clouds", "EndSky", "SunMoon", "RenderChunk", "Actor"]
+materials = ["Sky", "LegacyCubemap", "Clouds", "EndSky", "SunMoon", "RenderChunk", "Actor"]
 
 [info] 
 copyright = '''
