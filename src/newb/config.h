@@ -23,6 +23,9 @@
   TYPES
   - Should be integer. options to choose will be mentioned there
   - eg: #define NL_FOG_TYPE 2
+  
+  CUSTOM VALUE
+  - NLC_.... = custom value for this variant
 
   Remember to rebuild the shader after making changes.
 */
@@ -32,7 +35,7 @@
 // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES
 #define NL_TONEMAP_TYPE  3
 #define NL_CONTRAST      0.826
-#define NL_EXPOSURE      1.652
+#define NL_EXPOSURE      1.782
 #define NL_SATURATION    1.413
 //#define NL_TINT         vec3(1.0,0.75,0.5)
 
@@ -41,7 +44,7 @@
 #define NL_TORCH_INTENSITY		 0.82 // 0.5 weak ~ 3.0 bright
 #define NL_NIGHT_BRIGHTNESS	     0.0 // 0.0 dark ~ 2.0 bright
 #define NL_CAVE_BRIGHTNESS		 1.3 // 0.0 dark ~ 2.0 bright
-#define NL_SHADOW_INTENSITY	     0.81 // 0.0 no shadow ~ 1.0 strong shadow
+#define NL_SHADOW_INTENSITY	     0.9 // 0.0 no shadow ~ 1.0 strong shadow
 #define NL_BLINKING_TORCH                // [toggle] flickering light
 //#define NL_CLOUD_SHADOW                // [toggle] cloud shadow (simple clouds only)
 #define NLC_DARKEN_PLANT_BOTTOM  1.6  // 1.2 default ~ 2.0 darken (darken at bottom)
@@ -93,14 +96,15 @@
 #define NL_GLOW_SHIMMER		    0.9     // [toggle] shimmer effect
 #define NL_GLOW_LEAK		    0.5     // [toggle] 0.08 subtle ~ 1.0 100% brightness of NL_GLOW_TEX
 
-#define NL_PLANTS_WAVE          0.08    // [toggle] 0.02 gentle ~ 0.4 violent
-#define NL_LANTERN_WAVE         0.06    // [toggle] 0.05 subtle ~ 0.4 large swing
-#define NL_WAVE_SPEED           2.11     // 0.5 slow wave ~ 5.0 very fast wave
-#define NL_EXTRA_PLANTS_WAVE          // [toggle] !dont use! wave using texture coords (1.20.40 vanilla)
+/* Waving */
+#define NL_PLANTS_WAVE      0.05    // [toggle] 0.02 gentle ~ 0.4 violent
+#define NL_LANTERN_WAVE     0.16   // [toggle] 0.05 subtle ~ 0.4 large swing
+#define NL_WAVE_SPEED       1.8      // 0.5 slow wave ~ 5.0 very fast wave
+//#define NL_EXTRA_PLANTS_WAVE // [toggle] !dont use! wave using texture coords (1.21.0 vanilla 2048x1024)
 
 /* Water */
 #define NL_WATER_TRANSPARENCY           0.433    // 0.0 transparent ~ 1.0 normal
-#define NL_WATER_BUMP                   0.021   // 0.001 plain ~ 0.2 bumpy water
+#define NL_WATER_BUMP                   0.012   // 0.001 plain ~ 0.2 bumpy water
 #define NL_WATER_TEX_OPACITY            1.782    // 0.0 plain water ~ 1.0 vanilla water texture
 #define NL_WATER_WAVE                           // [toggle] wave effect
 #define NL_WATER_FOG_FADE                       // [toggle] fog fade for water
@@ -110,7 +114,7 @@
 /* Underwater */
 #define NL_UNDERWATER_BRIGHTNESS    2.0 // 0.0 dark ~ 3.0 bright
 #define NL_CAUSTIC_INTENSITY        2.5     // 0.5 weak ~ 5.0 bright
-#define NL_UNDERWATER_WAVE          0.18       // [toggle] 0.02 subtle ~ 0.6 trippy
+#define NL_UNDERWATER_WAVE          0.08       // [toggle] 0.02 subtle ~ 0.6 trippy
 #define NL_UNDERWATER_STREAKS       1.6    // [toggle] 0.8 subtle - 2.0 bright streaks from top
 #define NL_UNDERWATER_TINT          vec3(0.2, 0.8, 0.9) // fog tint color when underwater
 
@@ -119,7 +123,7 @@
 
 /* Vanilla cloud settings - make sure to remove clouds.png when using this */
 #define NL_CLOUD0_THICKNESS         2.0      // 0.5 slim ~ 8.0 fat
-#define NL_CLOUD0_RAIN_THICKNESS    3.0 // 0.5 slim ~ 8.0 fat
+#define NL_CLOUD0_RAIN_THICKNESS    4.0 // 0.5 slim ~ 8.0 fat
 #define NL_CLOUD0_OPACITY           1.0        // 0.0 invisible ~ 1.0 opaque
 
 /* Soft cloud settings */
@@ -135,16 +139,17 @@
 #define NL_CLOUD2_STEPS					5       // 3 low quality ~ 16 high quality
 #define NL_CLOUD2_SCALE					0.025   // 0.003 large ~ 0.3 tiny
 #define NL_CLOUD2_SHAPE					0.65    // 0.0 round ~ 1.0 box
-#define NL_CLOUD2_DENSITY				50.0    // 1.0 blurry ~ 100.0 sharp
-#define NL_CLOUD2_VELOCITY				1.2     // 0.0 static ~ 4.0 very fast
+#define NL_CLOUD2_DENSITY				200.0    // 1.0 blurry ~ 100.0 sharp
+#define NL_CLOUD2_VELOCITY				0.8     // 0.0 static ~ 4.0 very fast
 //#define NL_CLOUD2_MULTILAYER                  // [toggle] extra cloud layer
-#define NLC_CLOUD2_OPACITY              0.6     // 0.0 invisible ~ 1.0 opaque
-//#define NLC_3DNOISE                           // [toggle] volumetrics clouds
-#define NLC_CLOUD2_AMOUNT1              0.0
-#define NLC_CLOUD2_AMOUNT2              0.0
+
+/* Custom cloud setting */
+#define NLC_CLOUD2_TRANSITION1 0.1
+#define NLC_CLOUD2_TRANSITION2 0.1001
+//#define NLC_CLOUD_CUSTOM      // [toggle] volumetric cloud
 
 /* Aurora settings */
-#define NL_AURORA               6.0     // [toggle] 0.4 dim ~ 4.0 very bright
+#define NL_AURORA               4.0     // [toggle] 0.4 dim ~ 4.0 very bright
 #define NL_AURORA_VELOCITY      0.012    // 0.0 static ~ 0.3 very fast
 #define NL_AURORA_SCALE         0.04    // 0.002 large ~ 0.4 tiny
 #define NL_AURORA_WIDTH         0.06     // 0.04 thin line ~ 0.4 thick lines
@@ -213,13 +218,11 @@
   #define NL_CLOUD_TYPE 2
 #endif
 
-#ifdef MULTILAYER_CLOUDS
-  #undef NL_CLOUD_TYPE
-  #define NL_CLOUD_TYPE 2
-  #define NL_CLOUD2_MULTILAYER
+#ifdef ALWAYS_RELFECTION
+  #define NL_GROUND_REFL 0.6
 #endif
 
-#ifdef ULTRA
+#ifdef VOLUMETRIC_CLOUDS
   #undef NL_CLOUD_TYPE
   #undef NL_CLOUD2_THICKNESS
   #undef NL_CLOUD2_RAIN_THICKNESS
@@ -228,21 +231,19 @@
   #undef NL_CLOUD2_SHAPE
   #undef NL_CLOUD2_DENSITY
   #undef NL_AURORA_SCALE
-  #undef NLC_CLOUD2_AMOUNT1
-  #undef NLC_CLOUD2_AMOUNT2
-  #undef NLC_CLOUD2_OPACITY
+  #undef NLC_CLOUD2_TRANSITION1
+  #undef NLC_CLOUD2_TRANSITION2
   #define NL_CLOUD_TYPE 2
   #define NL_CLOUD2_THICKNESS 2.3
   #define NL_CLOUD2_RAIN_THICKNESS 2.3
   #define NL_CLOUD2_STEPS 8
   #define NL_CLOUD2_SCALE 0.011
   #define NL_CLOUD2_SHAPE 0.01
-  #define NL_CLOUD2_DENSITY 4.0
+  #define NL_CLOUD2_DENSITY 30.0
   #define NL_AURORA_SCALE 0.015
-  #define NLC_3DNOISE
-  #define NLC_CLOUD2_AMOUNT1 0.2
-  #define NLC_CLOUD2_AMOUNT2 0.1999
-  #define NLC_CLOUD2_OPACITY 0.9
+  #define NLC_CLOUD_CUSTOM
+  #define NLC_CLOUD2_TRANSITION1 0.2
+  #define NLC_CLOUD2_TRANSITION2 0.1999
 #endif
 
 #endif

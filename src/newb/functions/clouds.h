@@ -41,36 +41,38 @@ vec4 renderCloudsSimple(vec3 pos, highp float t, float rain, vec3 zenithCol, vec
 
 // rounded clouds
 
-// 2d noise
-float noise(vec2 p){
-  vec2 p0 = floor(p);
-  vec2 u = p-p0;
+float mod289(float x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
+vec4 mod289(vec4 x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
+vec4 perm(vec4 x){return mod289(((x * 34.0) + 1.0) * x);}
 
-  u *= u*(3.0-2.0*u);
-  vec2 v = 1.0 - u;
+float noise(vec3 p){
+    vec3 a = floor(p);
+    vec3 d = p - a;
+    d = d * d * (3.0 - 2.0 * d);
 
-  float c1 = rand(p0);
-  float c2 = rand(p0+vec2(1.0,0.0));
-  float c3 = rand(p0+vec2(0.0,1.0));
-  float c4 = rand(p0+vec2(1.0,1.0));
+    vec4 b = a.xxyy + vec4(0.0, 1.0, 0.0, 1.0);
+    vec4 k1 = perm(b.xyxy);
+    vec4 k2 = perm(k1.xyxy + b.zzww);
 
-  float n = v.y*mix(c1,c2,u.x) + u.y*(c3*v.x+c4*u.x);
-  return n;
+    vec4 c = k2 + a.zzzz;
+    vec4 k3 = perm(c);
+    vec4 k4 = perm(c + 1.0);
+
+    vec4 o1 = fract(k3 * (1.0 / 41.0));
+    vec4 o2 = fract(k4 * (1.0 / 41.0));
+
+    vec4 o3 = o2 * d.z + o1 * (1.0 - d.z);
+    vec2 o4 = o3.yw * d.x + o3.xz * (1.0 - d.x);
+
+    return o4.y * d.y + o4.x * (1.0 - d.y);
 }
 
-//   apply bevel with radius r at at corner (1.0)
-float bevel(float x, float r) {
-	 //return smoothstep(0.5,1.5,x);
-  float y = max(x-r,0.0);
-  return r+sqrt(1.0-2.0*r+r*r-y*y);
-}
-
-#ifdef NLC_3DNOISE
 // rounded clouds 3D density map
+#ifdef NLC_CLOUD_CUSTOM
 float cloudDf(vec3 pos, float rain) {
-  pos.x += 0.64*noise(6.0*pos.xz);
-  pos.y += 0.2*noise(0.1*pos.xz);
-  pos.z += 0.1*noise(0.0*pos.xz);
+  pos.x += 0.64*noise(6.0*pos.xyz);
+  pos.y += 0.2*noise(0.1*pos.xyz);
+  pos.z += 0.1*noise(0.0*pos.xyz);
 
   vec2 p0 = floor(pos.xz);
   vec2 u = pos.xz - p0;
@@ -80,7 +82,7 @@ float cloudDf(vec3 pos, float rain) {
   vec2 v = 1.0 - u;
 
   // rain transition
-  vec2 t = vec2(NLC_CLOUD2_AMOUNT1+0.1001+0.2*rain, NLC_CLOUD2_AMOUNT2+0.1+0.2*rain*rain);
+  vec2 t = vec2(NLC_CLOUD2_TRANSITION2+0.1001+0.2*rain, NLC_CLOUD2_TRANSITION2+0.1+0.2*rain*rain);
 
   // mix noise gradients
   float n = v.y*(randt(p0,t)*v.x + randt(p0+vec2(1.0,0.0),t)*u.x) +
@@ -126,7 +128,7 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
   float dusk = smoothstep(1.0, 0.0, fogCol.b)*(1.0 - night);
   vec3 cloudTint = mix(mix(vec3(0.32,0.34,0.42), vec3(0.63,0.417,0.3), dusk), vec3(0.05,0.071,0.1), night);
 
-  vec4 col = vec4((cloudTint*1.4), d.x*NLC_CLOUD2_OPACITY);
+  vec4 col = vec4((cloudTint*1.4), d.x*0.8);
   //vec4 col = vec4(skyCol*1.2, d.x*NLC_CLOUD2_OPACITY);
   col.rgb += rain + fogCol*d.y;
   col.rgb *= 1.0 - 0.73*rain;
@@ -135,27 +137,25 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
 }
 
 #else
-// rounded clouds 3D density map
 float cloudDf(vec3 pos, float rain) {
   vec2 p0 = floor(pos.xz);
   vec2 u = smoothstep(0.999*NL_CLOUD2_SHAPE, 1.0, pos.xz-p0);
-  
+
   // rain transition
-  vec2 t = vec2(NLC_CLOUD2_AMOUNT1+0.1001+0.2*rain, NLC_CLOUD2_AMOUNT2+0.1+0.2*rain*rain);
+  vec2 t = vec2(NLC_CLOUD2_TRANSITION1+0.2*rain, NLC_CLOUD2_TRANSITION2+0.2*rain*rain);
 
   float n = mix(
     mix(randt(p0, t),randt(p0+vec2(1.0,0.0), t), u.x),
     mix(randt(p0+vec2(0.0,1.0), t),randt(p0+vec2(1.0,1.0), t), u.x),
     u.y
   );
-	
+
   // round y
   float b = 1.0 - 1.9*smoothstep(NL_CLOUD2_SHAPE, 2.0 - NL_CLOUD2_SHAPE, 2.0*abs(pos.y-0.5));
   return smoothstep(0.2, 1.0, n * b);
 }
 
 vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec3 skyCol) {
-
   float height = 7.0*mix(NL_CLOUD2_THICKNESS, NL_CLOUD2_RAIN_THICKNESS, rain);
 
   // scaled ray offset
@@ -164,7 +164,7 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
   deltaP.xz = (NL_CLOUD2_SCALE*height)*vDir.xz/(0.02+0.98*abs(vDir.y));
   //deltaP.xyz = (NL_CLOUD2_SCALE*height)*vDir.xyz;
   //deltaP.y = abs(deltaP.y);
-  
+
   // local cloud pos
   vec3 pos;
   pos.y = 0.0;
@@ -172,45 +172,38 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
   pos += deltaP;
 
   deltaP /= -float(NL_CLOUD2_STEPS);
-  
+
   // alpha, gradient
   vec2 d = vec2(0.0,1.0);
   for (int i=1; i<=NL_CLOUD2_STEPS; i++) {
     float m = cloudDf(pos, rain);
-    
+
     d.x += m;
     d.y = mix(d.y, pos.y, m);
-    
+
     //if (d.x == 0.0 && i > NL_CLOUD2_STEPS/2) {
     //	break;
-    //} 
+    //}
 
     pos += deltaP;
   }
-  //d.x *= vDir.y*vDir.y; 
+  //d.x *= vDir.y*vDir.y;
   d.x *= smoothstep(0.03, 0.1, d.x);
   d.x = d.x / ((float(NL_CLOUD2_STEPS)/NL_CLOUD2_DENSITY) + d.x);
-  
+
   if (vPos.y > 0.0) { // view from bottom
     d.y = 1.0 - d.y;
   }
 
   d.y = 1.0 - 0.7*d.y*d.y;
- 
-// add custom cloud tint
-  float night = smoothstep(0.3, 0.1, fogCol.r);
-  float dusk = smoothstep(1.0, 0.0, fogCol.b)*(1.0 - night);
-  vec3 cloudTint = mix(mix(vec3(0.42,0.61,0.82), vec3(1.6,0.45,0.14), dusk), vec3(0.0,0.021,0.08), night);
 
-  //vec4 col = vec4((cloudTint*1.4), d.x*NLC_CLOUD2_OPACITY);
-  vec4 col = vec4(skyCol*1.2, d.x*NLC_CLOUD2_OPACITY);
-  col.rgb += rain + fogCol*d.y;
-  col.rgb *= 1.0 - 0.7*rain;
+  vec4 col = vec4(0.8*skyCol, d.x);
+  col.rgb += (vec3(0.03,0.05,0.05) + 1.9*fogCol)*d.y;
+  col.rgb *= 1.0 - 0.5*rain;
 
   return col;
 }
 #endif
-
 
 // aurora is rendered on clouds layer
 #ifdef NL_AURORA
@@ -228,29 +221,7 @@ vec4 renderAurora(vec3 p, float t, float rain, vec3 FOG_COLOR) {
   float mask = (1.0-0.8*rain)*max(1.0 - 4.0*max(FOG_COLOR.b, FOG_COLOR.g), 0.0);
   return vec4(NL_AURORA*mix(NL_AURORA_COL1,NL_AURORA_COL2,d1),1.0)*d2*mask;
 }
-/*
-vec4 renderAurora(vec3 p, float t, float rain, vec3 FOG_COLOR) {
-  p.xz *= NL_AURORA_SCALE;
-  t *= NL_AURORA_VELOCITY;
-  p.xz += 0.05 * sin(p.x * 8.0 * t);
 
-  // Introduce more complex wave patterns for realistic aurora
-  float wave1 = cos(p.x * 0.15 + t + cos(p.z * 0.28));
-  float wave2 = cos(p.z * 0.18 - t + cos(p.x * 0.25));
-  float wave3 = sin(p.z * 0.16 - t + cos(p.x * 0.26));
-  float wave4 = sin(p.x * 0.17 + 1.0 * sin(wave2 + wave1 + wave3 * 1.5) + wave3 * 1.0 + wave1 * 1.5 + wave2 * 1.0);
-
-  // Square the wave values to create sharp contrasts
-  wave1 *= wave1; wave2 *= wave2; wave3 *= wave3; wave4 *= wave4;
-  wave3 = wave1 / (1.0 + wave3 * wave4 / NL_AURORA_WIDTH);
-
-  // Modify fade mask for more subtle blending
-  float fadeMask = (1.0-0.8*rain) / (1.0 + 48.0 * FOG_COLOR.b * FOG_COLOR.b, 0.0);
-
-  // Blend colors dynamically for a more vibrant aurora
-  return vec4(NL_AURORA * mix(mix(NL_AURORA_COL1, NL_AURORA_COL2, wave1), NLC_AURORA_COL3, wave2), 1.0) * wave3 * fadeMask;
-}
-*/
 #endif
 
 #endif

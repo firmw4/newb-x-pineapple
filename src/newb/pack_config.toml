@@ -1,4 +1,4 @@
-name = "Newb X §6Pineapple"
+name = "§lNewb X §6Pineapple"
 version = [0, 3, 0]
 min_supported_mc_version = [1, 21, 20]
 description = '''
@@ -6,7 +6,7 @@ description = '''
 %v
 §c%w
 ''' # %w = patch warning, %v = version
-authors = ["devendrn", "firmw4"]
+authors = ["firmw4", "devendrn"]
 url = "https://devendrn.github.io/newb-shader/"
 uuid = "12d4ea4a-7439-4969-b936-9ad0d511d7d1" # Use https://www.uuidgenerator.net/version4
 materials = ["Sky", "LegacyCubemap", "Clouds", "EndSky", "SunMoon", "RenderChunk", "Actor"]
@@ -22,14 +22,17 @@ credits = '''
 
 [custom]
 label = '''
-Recommended set brightness to 30-40
-Don't use experimental features and education mode (or some bugs will occur)
-Disable Vsync for better performance
-Use ESSL100 pack by mrwang  for Snapdragon devices to reduce sutter and lag
-§csome devices specifically experience a bug in rounded clouds§r
+・Recommended set brightness to 30-40
+・Don't use experimental features and education mode (or some bugs will occur)
+・Disable Vsync for better performance
+・Use ESSL300 fix lag pack for Snapdragon devices to reduce sutter and lag spike issue
+・§csome devices specifically experience a bug in cloud cut render§r
 
+    §lCopyright (c)§r
 §cRedistribution of this resource pack with links other than the official ones provided by the creator is strictly prohibited.§r
 
+To find out about shader changes and updates, visit our discord server:
+https://discord.com/invite/chM7qTrGJT
 §lThanks for downloading and using this shader :)§r
 '''
 input = '''
@@ -40,7 +43,7 @@ input = '''
 
 
 [[subpack]]
-define = "ULTRA"
+define = "VOLUMETRIC_CLOUDS"
 materials = ["RenderChunk", "Clouds"]
 description = '''
 §4Ultra Pack§r
@@ -50,26 +53,26 @@ Summary: Realistic clouds style, always reflection and aurora reflection
 '''
 
 [[subpack]]
-define = "MULTILAYER_CLOUDS"
-materials = ["Clouds"]
+define = "ALWAYS_REFLECTION"
+materials = ["RenderChunk"]
 description = '''
-§9Multilayer Clouds§r
+§bAlways Reflection
 
-Summary: Rounded clouds with extra one layer
+Summary: Enable reflection effect at ground
 '''
 
 [[subpack]]
 define = "ROUNDED_CLOUDS"
-materials = ["Clouds"]
+materials = ["RenderChunk", "Clouds"]
 description = '''
-§bRounded Clouds§r
+§9Rounded Clouds§r
 
 Summary: Change to rounded clouds style
 '''
 
 [[subpack]]
 define = "SIMPLE_CLOUDS"
-materials = ["Clouds"]
+materials = ["RenderChunk", "Clouds"]
 description = '''
 §6Simple Clouds§r
 

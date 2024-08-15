@@ -69,17 +69,17 @@ vec3 nlLighting(
     // sky ambient
     light += mix(horizonCol,zenithCol,0.5+uv1.y-0.5*lit.y)*(lit.y*(3.0-2.0*uv1.y)*(1.3 + (4.0*nightFactor) - rainDim));
 
-/*
+
     // shadow cast by top light
     float shadow = step(0.93, uv1.y);
     shadow = max(shadow, (1.0 - NL_SHADOW_INTENSITY + (0.6*NL_SHADOW_INTENSITY*nightFactor))*lit.y);
     shadow *= shade > 0.8 ? 1.0 : 0.8;
-*/
-    // shadow cast by top light
+/*
     float sharpnessFactor = 30.0;  // Kontrol ketajaman bayangan
     float shadow = smoothstep(0.01, 0.9333 + (1.0 / sharpnessFactor), uv1.y);
     shadow = max(shadow, (1.0 - NL_SHADOW_INTENSITY + (0.8 * NL_SHADOW_INTENSITY * nightFactor)) * lit.y);
     shadow *= shade > 0.8 ? 1.0 : 0.8;
+*/
 
     // shadow cast by simple cloud
     #ifdef NL_CLOUD_SHADOW

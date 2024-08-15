@@ -3,6 +3,13 @@
 
 #include "constants.h"
 
+//   apply bevel with radius r at at corner (1.0)
+float bevel(float x, float r) {
+	 //return smoothstep(0.5,1.5,x);
+  float y = max(x-r,0.0);
+  return r+sqrt(1.0-2.0*r+r*r-y*y);
+}
+
 // hash function for noise (for highp only)
 highp float rand(highp vec2 n) {
   return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
