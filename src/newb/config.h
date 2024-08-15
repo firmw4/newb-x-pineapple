@@ -33,7 +33,7 @@
 #define NL_TONEMAP_TYPE  3
 #define NL_CONTRAST      0.826
 #define NL_EXPOSURE      1.652
-#define NL_SATURATION    1.203
+#define NL_SATURATION    1.413
 //#define NL_TINT         vec3(1.0,0.75,0.5)
 
 /* Terrain lighting */
@@ -67,22 +67,21 @@
 #define NL_RAIN_MIST_OPACITY    0.41     // [toggle] 0.04 very subtle ~ 0.5 thick mist blow
 
 /* Sky colors - zenith=top, horizon=bottom */
-
 #define NL_DAY_ZENITH_COL    vec3(0.263, 0.44, 1.0)
 #define NL_DAY_HORIZON_COL   vec3(0.73, 0.73, 1.0)
 
 #define NL_NIGHT_ZENITH_COL  vec3(0.0, 0.001, 0.002)
 #define NL_NIGHT_HORIZON_COL vec3(0.002, 0.2, 0.25)
 
-#define NL_DAWN_ZENITH_COL   vec3(0.096, 0.24, 0.8)
-#define NL_DAWN_HORIZON_COL  vec3(1.4, 0.517, 0.32)
-#define NL_DAWN_EDGE_COL     vec3(1.4, 0.322, 0.63)
+#define NL_DAWN_ZENITH_COL   vec3(0.086, 0.15, 0.4)
+#define NL_DAWN_HORIZON_COL  vec3(1.3, 0.301, 0.1)
+#define NL_DAWN_EDGE_COL     vec3(1.4, 0.422, 0.93)
 
 #define NL_RAIN_ZENITH_COL   vec3(0.25, 0.291, 0.38)
 #define NL_RAIN_HORIZON_COL  vec3(0.37, 0.413, 0.58)
 
 #define NL_END_ZENITH_COL    vec3(0.001, 0.0, 0.053)
-#define NL_END_HORIZON_COL   vec3(0.23, 0.004, 0.72)
+#define NL_END_HORIZON_COL   vec3(0.43, 0.09, 0.92)
 
 /* Rainbow */
 //#define NL_RAINBOW         // [toggle] enable rainbow in sky
@@ -141,8 +140,8 @@
 //#define NL_CLOUD2_MULTILAYER                  // [toggle] extra cloud layer
 #define NLC_CLOUD2_OPACITY              0.6     // 0.0 invisible ~ 1.0 opaque
 //#define NLC_3DNOISE                           // [toggle] volumetrics clouds
-#define NLC_CLOUD2_AMOUNT1              0.2
-#define NLC_CLOUD2_AMOUNT2              0.1999
+#define NLC_CLOUD2_AMOUNT1              0.0
+#define NLC_CLOUD2_AMOUNT2              0.0
 
 /* Aurora settings */
 #define NL_AURORA               6.0     // [toggle] 0.4 dim ~ 4.0 very bright
@@ -155,7 +154,7 @@
 //#define NLC_AURORA_COL3 vec3(0.2, 0.9, 0.5)
 
 /* Chunk loading slide in animation */
-//#define NL_CHUNK_LOAD_ANIM    100.0 // [toggle] -600.0 fall from top ~ 600.0 rise from bottom
+//#define NL_CHUNK_LOAD_ANIM    30.0 // [toggle] -600.0 fall from top ~ 600.0 rise from bottom
 
 /* Sun/Moon */
 #define NL_SUNMOON_ANGLE        35.0    // [toggle] 0.0 no tilt - 90.0 tilt of 90 degrees
@@ -204,11 +203,6 @@
   #define NL_RAINBOW
 #endif
 
-#ifdef ALWAYS_REFLECTION
-  #define NL_GROUND_AURORA_REFL
-  #define NL_GROUND_REFL 0.6
-#endif
-
 #ifdef SIMPLE_CLOUDS
   #undef NL_CLOUD_TYPE
   #define NL_CLOUD_TYPE 1
@@ -234,10 +228,9 @@
   #undef NL_CLOUD2_SHAPE
   #undef NL_CLOUD2_DENSITY
   #undef NL_AURORA_SCALE
+  #undef NLC_CLOUD2_AMOUNT1
+  #undef NLC_CLOUD2_AMOUNT2
   #undef NLC_CLOUD2_OPACITY
-  #define NL_WATER_CLOUD_REFLECTION
-  #define NL_GROUND_AURORA_REFL
-  #define NL_GROUND_REFL 0.6
   #define NL_CLOUD_TYPE 2
   #define NL_CLOUD2_THICKNESS 2.3
   #define NL_CLOUD2_RAIN_THICKNESS 2.3
@@ -247,6 +240,8 @@
   #define NL_CLOUD2_DENSITY 4.0
   #define NL_AURORA_SCALE 0.015
   #define NLC_3DNOISE
+  #define NLC_CLOUD2_AMOUNT1 0.2
+  #define NLC_CLOUD2_AMOUNT2 0.1999
   #define NLC_CLOUD2_OPACITY 0.9
 #endif
 

@@ -5,7 +5,8 @@
       "identifier": "minecraft:enderman",
       "min_engine_version": "1.8.0",
       "materials": {
-        "default": "entity_emissive_alpha"
+        "default": "enderman",
+        "invisible": "enderman_invisible"
       },
       "textures": {
         "default": "textures/entity/enderman/enderman"
@@ -37,7 +38,8 @@
         { "bob": "controller.animation.humanoid.bob" },
         { "base_pose": "controller.animation.enderman.base_pose" },
         { "carrying": "controller.animation.enderman.carrying" },
-        { "scary_face": "controller.animation.enderman.scary_face" }
+        { "scary_face": "controller.animation.enderman.scary_face" },
+        { "particle.damage": "controller.animation.hit.particle" }
       ],
       "render_controllers": [ "controller.render.enderman" ],
       "spawn_egg": {

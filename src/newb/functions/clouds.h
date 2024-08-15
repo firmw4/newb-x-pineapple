@@ -141,7 +141,7 @@ float cloudDf(vec3 pos, float rain) {
   vec2 u = smoothstep(0.999*NL_CLOUD2_SHAPE, 1.0, pos.xz-p0);
   
   // rain transition
-  vec2 t = vec2(0.3001+0.2*rain, 0.2999+0.2*rain*rain);
+  vec2 t = vec2(NLC_CLOUD2_AMOUNT1+0.1001+0.2*rain, NLC_CLOUD2_AMOUNT2+0.1+0.2*rain*rain);
 
   float n = mix(
     mix(randt(p0, t),randt(p0+vec2(1.0,0.0), t), u.x),
@@ -202,8 +202,8 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
   float dusk = smoothstep(1.0, 0.0, fogCol.b)*(1.0 - night);
   vec3 cloudTint = mix(mix(vec3(0.42,0.61,0.82), vec3(1.6,0.45,0.14), dusk), vec3(0.0,0.021,0.08), night);
 
-  vec4 col = vec4((cloudTint*1.4), d.x*NLC_CLOUD2_OPACITY);
-  //vec4 col = vec4(skyCol*1.2, d.x*NLC_CLOUD2_OPACITY);
+  //vec4 col = vec4((cloudTint*1.4), d.x*NLC_CLOUD2_OPACITY);
+  vec4 col = vec4(skyCol*1.2, d.x*NLC_CLOUD2_OPACITY);
   col.rgb += rain + fogCol*d.y;
   col.rgb *= 1.0 - 0.7*rain;
 

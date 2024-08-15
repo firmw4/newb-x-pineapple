@@ -1,6 +1,6 @@
 name = "Newb X §6Pineapple"
 version = [0, 3, 0]
-min_supported_mc_version = [1, 20, 80]
+min_supported_mc_version = [1, 21, 20]
 description = '''
 §7An aesthetic shader with a chill color theme§r
 %v
@@ -74,15 +74,6 @@ description = '''
 §6Simple Clouds§r
 
 Summary: Change to simple clouds style
-'''
-
-[[subpack]]
-define = "ALWAYS_REFLECTION"
-materials = ["RenderChunk"]
-description = '''
-§3Always Reflection§r
-
-Summary: Always reflection on ground effect
 '''
 
 [[subpack]]

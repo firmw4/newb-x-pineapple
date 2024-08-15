@@ -87,17 +87,30 @@ vec3 getSunBloom(float viewDirX, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
   float sunBloom = spread*spread;
   sunBloom = 0.5*spread + sunBloom*sunBloom*sunBloom*1.5;
 
-  vec3 b = mix(vec3(0.0,0.0,0.0), vec3(0.82,0.51,0.94), sunBloom);
+  return NL_MORNING_SUN_COL*horizonEdgeCol*(sunBloom*factor*factor);
+}
+/*
+vec3 getSunBloom(float viewDirX, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
+  float factor = FOG_COLOR.r/length(FOG_COLOR);
+  factor *= factor;
+  factor *= factor;
+
+  float spread = smoothstep(0.0, 1.0, abs(viewDirX));
+  float sunBloom = spread*spread;
+  sunBloom = 0.5*spread + sunBloom*sunBloom*sunBloom*1.5;
+
+  vec3 b = mix(vec3(0.0,0.0,0.0), NL_MORNING_SUN_COL, sunBloom);
 
   return 0.8*(b*factor*factor);
 }
+*/
 
 // End sky
 vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {
-  float a = atan2(viewDir.x, viewDir.z);
+  float a = atan(viewDir.x, viewDir.z);
 
-  float n1 = 0.5 + 0.5*sin(20.0*a + t + 1.0*viewDir.x*viewDir.y);
-  float n2 = 0.5 + 0.5*sin(5.0*a + 0.5*t + 8.0*n1 + 0.1*sin(40.0*a -4.0*t));
+  float n1 = 0.5 + 0.7*sin(13.0*a + t + 1.0*viewDir.x*viewDir.y);
+  float n2 = 0.6 + 0.5*sin(5.0*a + 0.5*t + 8.0*n1 + 0.1*sin(40.0*a -4.0*t));
 
   float waves = 0.6*n2*n1 + 0.3*n1;
 
@@ -112,7 +125,7 @@ vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {
 
   vec3 sky = mix(zenithCol, horizonCol, f*f);
 
-  vec3 additionalColor = vec3(0.32, 0.4, 0.84);
+  vec3 additionalColor = mix(NL_END_HORIZON_COL, vec3(0.23, 0.078, 0.72), 1.0);
   sky += (0.1*streaks + 2.0*g*g*g + h*h*h) * additionalColor;
 
   sky += 0.25*streaks*additionalColor;
