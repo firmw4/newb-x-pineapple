@@ -22,11 +22,11 @@ credits = '''
 
 [custom]
 label = '''
-・Recommended set brightness to 30-40
-・Don't use experimental features and education mode (or some bugs will occur)
-・Disable Vsync for better performance
-・Use ESSL300 fix lag pack for Snapdragon devices to reduce sutter and lag spike issue
-・§csome devices specifically experience a bug in cloud cut render§r
+ - Recommended set brightness to 30-40
+ - Don't use experimental features and education mode (or some bugs will occur)
+ - Disable Vsync for better performance
+ - Use ESSL300 fixlag pack for Snapdragon devices to reduce sutter and lag spike issue
+ - §csome devices specifically experience a bug in cloud cut render§r
 
     §lCopyright (c)§r
 §cRedistribution of this resource pack with links other than the official ones provided by the creator is strictly prohibited.§r
@@ -53,15 +53,6 @@ Summary: Realistic clouds style, always reflection and aurora reflection
 '''
 
 [[subpack]]
-define = "ALWAYS_REFLECTION"
-materials = ["RenderChunk"]
-description = '''
-§bAlways Reflection
-
-Summary: Enable reflection effect at ground
-'''
-
-[[subpack]]
 define = "ROUNDED_CLOUDS"
 materials = ["RenderChunk", "Clouds"]
 description = '''
@@ -77,6 +68,15 @@ description = '''
 §6Simple Clouds§r
 
 Summary: Change to simple clouds style
+'''
+
+[[subpack]]
+define = "ALWAYS_REFLECTION"
+materials = ["RenderChunk"]
+description = '''
+§bAlways Reflection§r
+
+Summary: Enable reflection effect at ground
 '''
 
 [[subpack]]

@@ -41,32 +41,6 @@ vec4 renderCloudsSimple(vec3 pos, highp float t, float rain, vec3 zenithCol, vec
 
 // rounded clouds
 
-float mod289(float x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
-vec4 mod289(vec4 x){return x - floor(x * (1.0 / 289.0)) * 289.0;}
-vec4 perm(vec4 x){return mod289(((x * 34.0) + 1.0) * x);}
-
-float noise(vec3 p){
-    vec3 a = floor(p);
-    vec3 d = p - a;
-    d = d * d * (3.0 - 2.0 * d);
-
-    vec4 b = a.xxyy + vec4(0.0, 1.0, 0.0, 1.0);
-    vec4 k1 = perm(b.xyxy);
-    vec4 k2 = perm(k1.xyxy + b.zzww);
-
-    vec4 c = k2 + a.zzzz;
-    vec4 k3 = perm(c);
-    vec4 k4 = perm(c + 1.0);
-
-    vec4 o1 = fract(k3 * (1.0 / 41.0));
-    vec4 o2 = fract(k4 * (1.0 / 41.0));
-
-    vec4 o3 = o2 * d.z + o1 * (1.0 - d.z);
-    vec2 o4 = o3.yw * d.x + o3.xz * (1.0 - d.x);
-
-    return o4.y * d.y + o4.x * (1.0 - d.y);
-}
-
 // rounded clouds 3D density map
 #ifdef NLC_CLOUD_CUSTOM
 float cloudDf(vec3 pos, float rain) {
@@ -130,7 +104,7 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
 
   vec4 col = vec4((cloudTint*1.4), d.x*0.8);
   //vec4 col = vec4(skyCol*1.2, d.x*NLC_CLOUD2_OPACITY);
-  col.rgb += rain + fogCol*d.y;
+  col.rgb += (vec3(0.03,0.05,0.05) + fogCol)*d.y;
   col.rgb *= 1.0 - 0.73*rain;
 
   return col;
@@ -197,7 +171,7 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
 
   d.y = 1.0 - 0.7*d.y*d.y;
 
-  vec4 col = vec4(0.8*skyCol, d.x);
+  vec4 col = vec4(0.6*skyCol, d.x);
   col.rgb += (vec3(0.03,0.05,0.05) + 1.9*fogCol)*d.y;
   col.rgb *= 1.0 - 0.5*rain;
 

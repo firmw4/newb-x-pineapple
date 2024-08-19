@@ -35,8 +35,8 @@
 // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES
 #define NL_TONEMAP_TYPE  3
 #define NL_CONTRAST      0.826
-#define NL_EXPOSURE      1.782
-#define NL_SATURATION    1.413
+#define NL_EXPOSURE      1.761
+#define NL_SATURATION    1.382
 //#define NL_TINT         vec3(1.0,0.75,0.5)
 
 /* Terrain lighting */
@@ -66,12 +66,12 @@
 
 /* Fog */
 #define NL_FOG_TYPE             2       // 0:no fog, 1:vanilla, 2:smoother vanilla
-#define NL_MIST_DENSITY         1.26    // 0.0 no mist ~ 1.0 misty
+#define NL_MIST_DENSITY         2.02    // 0.0 no mist ~ 1.0 misty
 #define NL_RAIN_MIST_OPACITY    0.41     // [toggle] 0.04 very subtle ~ 0.5 thick mist blow
 
 /* Sky colors - zenith=top, horizon=bottom */
 #define NL_DAY_ZENITH_COL    vec3(0.263, 0.44, 1.0)
-#define NL_DAY_HORIZON_COL   vec3(0.73, 0.73, 1.0)
+#define NL_DAY_HORIZON_COL   vec3(0.86, 0.862, 1.0)
 
 #define NL_NIGHT_ZENITH_COL  vec3(0.0, 0.001, 0.002)
 #define NL_NIGHT_HORIZON_COL vec3(0.002, 0.2, 0.25)
@@ -84,7 +84,7 @@
 #define NL_RAIN_HORIZON_COL  vec3(0.37, 0.413, 0.58)
 
 #define NL_END_ZENITH_COL    vec3(0.001, 0.0, 0.053)
-#define NL_END_HORIZON_COL   vec3(0.43, 0.09, 0.92)
+#define NL_END_HORIZON_COL   vec3(0.39, 0.08, 0.889)
 
 /* Rainbow */
 //#define NL_RAINBOW         // [toggle] enable rainbow in sky
@@ -134,8 +134,8 @@
 #define NL_CLOUD1_OPACITY       1.0                 // 0.0 invisible ~ 1.0 opaque
 
 /* Rounded cloud Settings */
-#define NL_CLOUD2_THICKNESS			    2.3     // 0.5 slim ~ 5.0 fat
-#define NL_CLOUD2_RAIN_THICKNESS		2.4     // 0.5 slim ~ 5.0 fat
+#define NL_CLOUD2_THICKNESS			    2.8     // 0.5 slim ~ 5.0 fat
+#define NL_CLOUD2_RAIN_THICKNESS		3.8     // 0.5 slim ~ 5.0 fat
 #define NL_CLOUD2_STEPS					5       // 3 low quality ~ 16 high quality
 #define NL_CLOUD2_SCALE					0.025   // 0.003 large ~ 0.3 tiny
 #define NL_CLOUD2_SHAPE					0.65    // 0.0 round ~ 1.0 box
@@ -144,8 +144,8 @@
 //#define NL_CLOUD2_MULTILAYER                  // [toggle] extra cloud layer
 
 /* Custom cloud setting */
-#define NLC_CLOUD2_TRANSITION1 0.1
-#define NLC_CLOUD2_TRANSITION2 0.1001
+#define NLC_CLOUD2_TRANSITION1 0.1001
+#define NLC_CLOUD2_TRANSITION2 0.1
 //#define NLC_CLOUD_CUSTOM      // [toggle] volumetric cloud
 
 /* Aurora settings */
@@ -208,6 +208,10 @@
   #define NL_RAINBOW
 #endif
 
+#ifdef ALWAYS_RELFECTION
+  #define NL_GROUND_REFL 0.6
+#endif
+
 #ifdef SIMPLE_CLOUDS
   #undef NL_CLOUD_TYPE
   #define NL_CLOUD_TYPE 1
@@ -216,10 +220,6 @@
 #ifdef ROUNDED_CLOUDS
   #undef NL_CLOUD_TYPE
   #define NL_CLOUD_TYPE 2
-#endif
-
-#ifdef ALWAYS_RELFECTION
-  #define NL_GROUND_REFL 0.6
 #endif
 
 #ifdef VOLUMETRIC_CLOUDS
