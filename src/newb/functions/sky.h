@@ -92,7 +92,7 @@ vec3 getSunBloom(float viewDirX, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
 
 // The end sky
 vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {
-  float a = atan(viewDir.x, viewDir.z);
+  float a = atan2(viewDir.x, viewDir.z);
 
   float n1 = 0.7 + 0.5*sin(11.0*a + t + 1.0*viewDir.x*viewDir.y);
   float n2 = 0.6 + 0.5*sin(5.0*a + 0.5*t + 7.0*n1 + 0.1*sin(40.0*a -4.0*t));
