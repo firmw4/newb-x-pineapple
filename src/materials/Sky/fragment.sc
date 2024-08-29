@@ -36,7 +36,7 @@ void main() {
     skyColor = colorCorrection(skyColor);
 
     #ifdef NLC_SHOOTING_STAR
-    skyColor += pow(vec3_splat(star(sPos.xz*160.0, v_underwaterRainTime.z))*1.1, vec3(16. 6, 4)) * mask;
+    skyColor += pow(vec3_splat(star(sPos.xz*160.0, v_underwaterRainTime.z))*1.1, vec3(16, 6, 4)) * mask;
     #endif
 
     vec3 starDir = normalize(v_worldPos);
