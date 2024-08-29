@@ -48,7 +48,7 @@ def _download_file(url: str, path: str) -> None:
                 return
 
 
-NS_DEV_RELEASE = "https://github.com/firmw4/newb-x-pineapple/releases/download/dev/"
+NS_DEV_RELEASE = "https://github.com/devendrn/newb-shader/releases/download/dev/"
 
 
 def run(args):
