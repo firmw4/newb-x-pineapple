@@ -68,7 +68,7 @@ vec3 renderOverworldSky(vec3 horizonEdgeCol, vec3 horizonColor, vec3 zenithColor
   // gradient 1  h^16
   // gradient 2  h^8 mix h^2
   float gradient1 = hsq*hsq*hsq*hsq;
-  float gradient2 = 0.6*gradient1 + 0.4*hsq;
+  float gradient2 = 0.8*gradient1 + 0.2*hsq;
   gradient1 *= gradient1;
 
   vec3 sky = mix(horizonColor, horizonEdgeCol, gradient1);
@@ -89,46 +89,31 @@ vec3 getSunBloom(float viewDirX, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
 
   return NL_MORNING_SUN_COL*horizonEdgeCol*(sunBloom*factor*factor);
 }
-/*
-vec3 getSunBloom(float viewDirX, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
-  float factor = FOG_COLOR.r/length(FOG_COLOR);
-  factor *= factor;
-  factor *= factor;
 
-  float spread = smoothstep(0.0, 1.0, abs(viewDirX));
-  float sunBloom = spread*spread;
-  sunBloom = 0.5*spread + sunBloom*sunBloom*sunBloom*1.5;
-
-  vec3 b = mix(vec3(0.0,0.0,0.0), NL_MORNING_SUN_COL, sunBloom);
-
-  return 0.8*(b*factor*factor);
-}
-*/
-
-// End sky
+// The end sky
 vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {
   float a = atan(viewDir.x, viewDir.z);
 
-  float n1 = 0.5 + 0.7*sin(13.0*a + t + 1.0*viewDir.x*viewDir.y);
-  float n2 = 0.6 + 0.5*sin(5.0*a + 0.5*t + 8.0*n1 + 0.1*sin(40.0*a -4.0*t));
+  float n1 = 0.7 + 0.5*sin(11.0*a + t + 1.0*viewDir.x*viewDir.y);
+  float n2 = 0.6 + 0.5*sin(5.0*a + 0.5*t + 7.0*n1 + 0.1*sin(40.0*a -4.0*t));
 
-  float waves = 0.6*n2*n1 + 0.3*n1;
+  float waves = 0.5*n2*n1 + 0.4*n1;
 
   float grad = 0.5 + 0.5*viewDir.y;
   float streaks = waves*(1.0 - grad*grad*grad);
   streaks += (1.0-streaks)*smoothstep(1.0-waves, -1.0, viewDir.y);
 
-  float f = 0.5*streaks + 0.7*smoothstep(1.0, -0.5, viewDir.y);
+  float f = 0.6*streaks + 0.4*smoothstep(1.0, -0.5, viewDir.y);
   float h = streaks*streaks;
   float g = h*h;
   g *= g;
 
   vec3 sky = mix(zenithCol, horizonCol, f*f);
 
-  vec3 additionalColor = mix(NL_END_HORIZON_COL, vec3(0.23, 0.078, 0.72), 1.0);
+  vec3 additionalColor = mix(NL_END_HORIZON_COL, vec3(0.06, 0.04, 0.62), 1.0);
   sky += (0.1*streaks + 2.0*g*g*g + h*h*h) * additionalColor;
 
-  sky += 0.25*streaks*additionalColor;
+  sky += 0.2*streaks*additionalColor;
 
   return sky;
 }

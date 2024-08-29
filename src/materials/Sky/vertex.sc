@@ -30,7 +30,6 @@ void main() {
 
     v_fogColor = FogColor.rgb;
     v_worldPos = mul(u_model[0], vec4(pos, 1.0)).xyz;
-
     sPos = sposv;
 
     gl_Position = mul(u_modelViewProj, vec4(pos, 1.0));

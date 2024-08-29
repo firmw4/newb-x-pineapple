@@ -178,6 +178,9 @@ void main() {
 
     if (underWater) {
       nlUnderwaterLighting(light, pos.xyz, lit, uv1, tiledCpos, cPos, t, horizonEdgeCol);
+      #ifdef NLC_CLEAR_UNDERWATER
+      fogColor.a = 0.0;
+      #endif
     }
   #else
     float water = 0.0;

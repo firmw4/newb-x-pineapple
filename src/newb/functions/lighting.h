@@ -75,7 +75,7 @@ vec3 nlLighting(
     shadow = max(shadow, (1.0 - NL_SHADOW_INTENSITY + (0.6*NL_SHADOW_INTENSITY*nightFactor))*lit.y);
     shadow *= shade > 0.8 ? 1.0 : 0.8;
 /*
-    float sharpnessFactor = 30.0;  // Kontrol ketajaman bayangan
+    float sharpnessFactor = 30.0;
     float shadow = smoothstep(0.01, 0.9333 + (1.0 / sharpnessFactor), uv1.y);
     shadow = max(shadow, (1.0 - NL_SHADOW_INTENSITY + (0.8 * NL_SHADOW_INTENSITY * nightFactor)) * lit.y);
     shadow *= shade > 0.8 ? 1.0 : 0.8;
@@ -97,8 +97,11 @@ vec3 nlLighting(
     light += torchLight*(1.0-(max(shadow, 0.65*lit.y)*dayFactor*(1.0-0.3*rainFactor)));
   }
 
-  // darken at crevices
-  light *= COLOR.g > 0.35 ? 1.0 : 0.8;
+  // darken at crevices with sharp shadows
+  //light *= COLOR.g > 0.35 ? 1.0 : 0.8;
+  float shadowSharpness = 0.5;
+  float darkeningFactor = smoothstep(shadowSharpness - 0.1, shadowSharpness + 0.1, COLOR.g);
+  light *= 1.0 - darkeningFactor * 0.2;
 
   // brighten tree leaves
   if (isTree) {

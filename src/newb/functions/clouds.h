@@ -42,11 +42,11 @@ vec4 renderCloudsSimple(vec3 pos, highp float t, float rain, vec3 zenithCol, vec
 // rounded clouds
 
 // rounded clouds 3D density map
-#ifdef NLC_CLOUD_CUSTOM
+#ifdef NLC_CLOUD2_CUSTOM
 float cloudDf(vec3 pos, float rain) {
-  pos.x += 0.64*noise(6.0*pos.xyz);
-  pos.y += 0.2*noise(0.1*pos.xyz);
-  pos.z += 0.1*noise(0.0*pos.xyz);
+  pos.x += 0.64*noise2D(6.0*pos.xyz);
+  pos.y += 0.2*noise2D(0.1*pos.xyz);
+  pos.z += 0.1*noise2D(0.0*pos.xyz);
 
   vec2 p0 = floor(pos.xz);
   vec2 u = pos.xz - p0;
@@ -56,7 +56,7 @@ float cloudDf(vec3 pos, float rain) {
   vec2 v = 1.0 - u;
 
   // rain transition
-  vec2 t = vec2(NLC_CLOUD2_TRANSITION2+0.1001+0.2*rain, NLC_CLOUD2_TRANSITION2+0.1+0.2*rain*rain);
+  vec2 t = vec2(NLC_CLOUD2_TRANSITION1+0.2*rain, NLC_CLOUD2_TRANSITION2+0.2*rain*rain);
 
   // mix noise gradients
   float n = v.y*(randt(p0,t)*v.x + randt(p0+vec2(1.0,0.0),t)*u.x) +
@@ -97,36 +97,38 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
 
   d.y = 1.0-0.8*d.y*d.y;
 
-// add custom cloud tint
+  // Custom cloud tinting
   float night = smoothstep(0.3, 0.1, fogCol.r);
-  float dusk = smoothstep(1.0, 0.0, fogCol.b)*(1.0 - night);
-  vec3 cloudTint = mix(mix(vec3(0.32,0.34,0.42), vec3(0.63,0.417,0.3), dusk), vec3(0.05,0.071,0.1), night);
+  float dusk = smoothstep(1.0, 0.0, fogCol.b) * (1.0 - night);
 
-  vec4 col = vec4((cloudTint*1.4), d.x*0.8);
-  //vec4 col = vec4(skyCol*1.2, d.x*NLC_CLOUD2_OPACITY);
-  col.rgb += (vec3(0.03,0.05,0.05) + fogCol)*d.y;
-  col.rgb *= 1.0 - 0.73*rain;
+  vec3 customCloudCol = mix(mix(NLC_DAY_CLOUD2_COL, NLC_DAWN_CLOUD2_COL, dusk), NLC_NIGHT_CLOUD2_COL, night);
+
+  vec4 col = vec4(customCloudCol*1.2, d.x*0.8);
+  col.rgb += (NLC_RAIN_CLOUD2_COL*0.8 + fogCol)*d.y;
+  col.rgb *= 1.0 - 0.5*rain;
 
   return col;
 }
 
 #else
+// rounded clouds 3D density map
 float cloudDf(vec3 pos, float rain) {
   vec2 p0 = floor(pos.xz);
-  vec2 u = smoothstep(0.999*NL_CLOUD2_SHAPE, 1.0, pos.xz-p0);
+  vec2 u = pos.xz - p0;
+  //u = smoothstep(0.99*NL_CLOUD2_SHAPE,1.0,u);
+  u = max((u-NL_CLOUD2_SHAPE)/(1.0-NL_CLOUD2_SHAPE),0.0);
+  u = 3.0*u*u - 2.0*u*u*u;
+  vec2 v = 1.0 - u;
 
   // rain transition
   vec2 t = vec2(NLC_CLOUD2_TRANSITION1+0.2*rain, NLC_CLOUD2_TRANSITION2+0.2*rain*rain);
 
-  float n = mix(
-    mix(randt(p0, t),randt(p0+vec2(1.0,0.0), t), u.x),
-    mix(randt(p0+vec2(0.0,1.0), t),randt(p0+vec2(1.0,1.0), t), u.x),
-    u.y
-  );
+  // mix noise gradients
+  float n = v.y*(randt(p0,t)*v.x + randt(p0+vec2(1.0,0.0),t)*u.x) +
+            u.y*(randt(p0+vec2(0.0,1.0),t)*v.x + randt(p0+vec2(1.0,1.0),t)*u.x);
 
-  // round y
-  float b = 1.0 - 1.9*smoothstep(NL_CLOUD2_SHAPE, 2.0 - NL_CLOUD2_SHAPE, 2.0*abs(pos.y-0.5));
-  return smoothstep(0.2, 1.0, n * b);
+  float b = bevel(2.0*abs(pos.y-0.5), 0.3);
+  return n*b;
 }
 
 vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec3 skyCol) {
@@ -148,7 +150,7 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
   deltaP /= -float(NL_CLOUD2_STEPS);
 
   // alpha, gradient
-  vec2 d = vec2(0.0,1.0);
+  vec2 d = vec2(0.0,0.6);
   for (int i=1; i<=NL_CLOUD2_STEPS; i++) {
     float m = cloudDf(pos, rain);
 
@@ -162,22 +164,24 @@ vec4 renderClouds(vec3 vDir, vec3 vPos, float rain, float time, vec3 fogCol, vec
     pos += deltaP;
   }
   //d.x *= vDir.y*vDir.y;
-  d.x *= smoothstep(0.03, 0.1, d.x);
+  d.x *= smoothstep(0.03, 0.2, d.x);
   d.x = d.x / ((float(NL_CLOUD2_STEPS)/NL_CLOUD2_DENSITY) + d.x);
 
   if (vPos.y > 0.0) { // view from bottom
     d.y = 1.0 - d.y;
   }
 
-  d.y = 1.0 - 0.7*d.y*d.y;
+  d.y = 1.0 - 0.8*d.y*d.y;
 
-  vec4 col = vec4(0.6*skyCol, d.x);
-  col.rgb += (vec3(0.03,0.05,0.05) + 1.9*fogCol)*d.y;
+  vec4 col = vec4(skyCol*0.8, d.x*0.6);
+  col.rgb += (NLC_RAIN_CLOUD2_COL*0.8 + fogCol)*d.y;
   col.rgb *= 1.0 - 0.5*rain;
 
   return col;
 }
 #endif
+
+
 
 // aurora is rendered on clouds layer
 #ifdef NL_AURORA

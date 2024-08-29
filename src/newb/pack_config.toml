@@ -1,4 +1,4 @@
-name = "§lNewb X §6Pineapple"
+name = "§l§6Newb §fX §6Pineapple§r"
 version = [0, 3, 0]
 min_supported_mc_version = [1, 21, 20]
 description = '''
@@ -22,17 +22,18 @@ credits = '''
 
 [custom]
 label = '''
- - Recommended set brightness to 30-40
+ - Highly recommended set brightness to 0-30
  - Don't use experimental features and education mode (or some bugs will occur)
  - Disable Vsync for better performance
  - Use ESSL300 fixlag pack for Snapdragon devices to reduce sutter and lag spike issue
- - §csome devices specifically experience a bug in cloud cut render§r
+ - §4some devices specifically experience a bug in cloud cut render§r
 
-    §lCopyright (c)§r
-§cRedistribution of this resource pack with links other than the official ones provided by the creator is strictly prohibited.§r
+  >  §lCopyright (c)§r
+§oRedistribution of this resource pack with links other than the official ones provided by the creator is strictly prohibited.§r
 
 To find out about shader changes and updates, visit our discord server:
 https://discord.com/invite/chM7qTrGJT
+
 §lThanks for downloading and using this shader :)§r
 '''
 input = '''
@@ -43,58 +44,48 @@ input = '''
 
 
 [[subpack]]
-define = "VOLUMETRIC_CLOUDS"
-materials = ["RenderChunk", "Clouds"]
-description = '''
-§4Ultra Pack§r
-
-Summary: Realistic clouds style, always reflection and aurora reflection 
-§cImportant! Some devices with certain GPUs are not compatible with this cloud style§r
-'''
-
-[[subpack]]
-define = "ROUNDED_CLOUDS"
-materials = ["RenderChunk", "Clouds"]
-description = '''
-§9Rounded Clouds§r
-
-Summary: Change to rounded clouds style
-'''
-
-[[subpack]]
-define = "SIMPLE_CLOUDS"
-materials = ["RenderChunk", "Clouds"]
-description = '''
-§6Simple Clouds§r
-
-Summary: Change to simple clouds style
-'''
-
-[[subpack]]
 define = "ALWAYS_REFLECTION"
 materials = ["RenderChunk"]
 description = '''
 §bAlways Reflection§r
 
-Summary: Enable reflection effect at ground
+Summary: Ground reflection is always on and cloud reflection on water
 '''
 
 [[subpack]]
-define = "RAINBOWS"
-materials = ["Sky"]
-description = '''
-§4R§6a§ei§an§2b§1o§5w§ds§r
-
-Summary: Show rainbow effect on sky
-'''
-
-[[subpack]]
-define = "NIGHT_VISION"
+define = "CLOUD_REFLECTION"
 materials = ["RenderChunk"]
 description = '''
-§eNight Vision§r
+§eCloud Reflection§r
 
-Summary: Full bright at night
+Summary: Enable cloud reflection on water
+'''
+
+[[subpack]]
+define = "V_MULTILAYER_CLOUD"
+materials = ["RenderChunk", "Clouds"]
+description = '''
+§9Vanilla Multilayer Cloud§r
+
+Summary: Vanilla cloud style with extra layer
+'''
+
+[[subpack]]
+define = "VANILLA_CLOUD"
+materials = ["RenderChunk", "Clouds"]
+description = '''
+§3Vanilla Cloud§r
+
+Summary: Change to vanilla clouds style
+'''
+
+[[subpack]]
+define = "SIMPLE_CLOUD"
+materials = ["RenderChunk", "Clouds"]
+description = '''
+§1Simple Cloud§r
+
+Summary: Change to simple soft clouds style
 '''
 
 [[subpack]]
@@ -112,5 +103,5 @@ materials = []
 description = '''
 Default
 
-Summary: Vanilla clouds, wave effect and aurora at night
+Summary: Rounded clouds, wave effect and aurora at night
 '''
