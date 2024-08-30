@@ -25,8 +25,8 @@ label = '''
  - Highly recommended set brightness to 0-30
  - Don't use experimental features and education mode (or some bugs will occur)
  - Disable Vsync for better performance
- - Use ESSL300 fixlag pack for Snapdragon devices to reduce sutter and lag spike issue
- - §4some devices specifically experience a bug in cloud cut render§r
+ - Use ESSL300 fixlag pack for Snapdragon-only to reduce sutter and lag spike issue
+ - §4some devices specifically experience a bug in cloud render cuttting§r
 
   >  §lCopyright (c)§r
 §oRedistribution of this resource pack with links other than the official ones provided by the creator is strictly prohibited.§r
@@ -63,7 +63,7 @@ Summary: Enable cloud reflection on water
 
 [[subpack]]
 define = "V_MULTILAYER_CLOUD"
-materials = ["RenderChunk", "Clouds"]
+materials = ["Clouds"]
 description = '''
 §9Vanilla Multilayer Cloud§r
 
@@ -72,7 +72,7 @@ Summary: Vanilla cloud style with extra layer
 
 [[subpack]]
 define = "VANILLA_CLOUD"
-materials = ["RenderChunk", "Clouds"]
+materials = ["Clouds"]
 description = '''
 §3Vanilla Cloud§r
 
@@ -81,7 +81,7 @@ Summary: Change to vanilla clouds style
 
 [[subpack]]
 define = "SIMPLE_CLOUD"
-materials = ["RenderChunk", "Clouds"]
+materials = ["Clouds"]
 description = '''
 §1Simple Cloud§r
 

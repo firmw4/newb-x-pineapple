@@ -1,7 +1,7 @@
 #ifndef STARS_H
 #define STARS_H
 
-#include "hash.h"
+#include "noise.h"
 
 // shooting star
 highp float star(highp vec2 x, float time) {

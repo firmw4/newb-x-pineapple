@@ -21,7 +21,7 @@ float nlRenderFogFade(float relativeDist, vec3 FOG_COLOR, vec2 FOG_CONTROL) {
          fade = smoothstep(FOG_CONTROL.x, FOG_CONTROL.y, relativeDist);
          fade = 1.0-exp(-relativeDist*fogDensity);
       } else if (NL_FOG_TYPE == 4) {
-       // cubic interpolation
+      // cubic interpolation
          float fogDensity = 0.01;
          float fogFactor = exp(-relativeDist*fogDensity);
          float t = (relativeDist - FOG_CONTROL.x) / (FOG_CONTROL.y - FOG_CONTROL.x);

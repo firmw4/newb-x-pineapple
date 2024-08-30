@@ -2,7 +2,26 @@
 #define NOISE_H
 
 #include "constants.h"
-#include "hash.h"
+
+// hash function for noise (for highp only)
+highp float rand(highp vec2 n) {
+  return fract(sin(dot(n, vec2(12.9898, 6.1414))) * 43758.5453);
+}
+
+// random generate for shooting star
+float hash(vec2 x) {
+  vec2 y = vec2(3.1415926 * 1453.0, exp(1.0) * 3054.0);
+  return fract(sin(dot(x, y) * 0.1) * 4323.0);
+}
+
+// hash function for star
+vec3 sHash(vec3 p) {
+  p = vec3(dot(p,vec3(127.1,311.7, 74.7)),
+           dot(p,vec3(269.5,183.3,246.1)),
+           dot(p,vec3(113.5,271.9,124.6)));
+
+  return -1.0 + 2.0*fract(sin(p)*43758.5453123);
+}
 
 // 1D noise - used in plants,lantern wave
 highp float noise1D(highp float x) {
@@ -68,20 +87,21 @@ float noise2D(vec3 p){
   return o4.y * d.y + o4.x * (1.0 - d.y);
 }
 
-float noiseS(in vec3 p) {
+// 3D star noise modeling
+float sNoise(in vec3 p) {
   vec3 i = floor(p);
   vec3 f = fract(p);
 
   vec3 u = f*f*(3.0-2.0*f);
 
-  return mix(mix(mix(dot(hashS(i + vec3(0.0,0.0,0.0)), f - vec3(0.0,0.0,0.0)),
-                     dot(hashS(i + vec3(1.0,0.0,0.0)), f - vec3(1.0,0.0,0.0)), u.x),
-                 mix(dot(hashS(i + vec3(0.0,1.0,0.0)), f - vec3(0.0,1.0,0.0)),
-                     dot(hashS(i + vec3(1.0,1.0,0.0)), f - vec3(1.0,1.0,0.0)), u.x), u.y),
-             mix(mix(dot(hashS(i + vec3(0.0,0.0,1.0)), f - vec3(0.0,0.0,1.0)),
-                     dot(hashS(i + vec3(1.0,0.0,1.0)), f - vec3(1.0,0.0,1.0)), u.x),
-                 mix(dot(hashS(i + vec3(0.0,1.0,1.0)), f - vec3(0.0,1.0,1.0)),
-                     dot(hashS(i + vec3(1.0,1.0,1.0)), f - vec3(1.0,1.0,1.0)), u.x), u.y), u.z);
+  return mix(mix(mix(dot(sHash(i + vec3(0.0,0.0,0.0)), f - vec3(0.0,0.0,0.0)),
+                     dot(sHash(i + vec3(1.0,0.0,0.0)), f - vec3(1.0,0.0,0.0)), u.x),
+                 mix(dot(sHash(i + vec3(0.0,1.0,0.0)), f - vec3(0.0,1.0,0.0)),
+                     dot(sHash(i + vec3(1.0,1.0,0.0)), f - vec3(1.0,1.0,0.0)), u.x), u.y),
+             mix(mix(dot(sHash(i + vec3(0.0,0.0,1.0)), f - vec3(0.0,0.0,1.0)),
+                     dot(sHash(i + vec3(1.0,0.0,1.0)), f - vec3(1.0,0.0,1.0)), u.x),
+                 mix(dot(sHash(i + vec3(0.0,1.0,1.0)), f - vec3(0.0,1.0,1.0)),
+                     dot(sHash(i + vec3(1.0,1.0,1.0)), f - vec3(1.0,1.0,1.0)), u.x), u.y), u.z);
 }
 
 #endif

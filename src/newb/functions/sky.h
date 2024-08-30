@@ -98,9 +98,9 @@ vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {
   float n2 = 0.6 + 0.5*sin(5.0*a + 0.5*t + 7.0*n1 + 0.1*sin(40.0*a -4.0*t));
 
   float waves = 0.5*n2*n1 + 0.4*n1;
-
   float grad = 0.5 + 0.5*viewDir.y;
   float streaks = waves*(1.0 - grad*grad*grad);
+
   streaks += (1.0-streaks)*smoothstep(1.0-waves, -1.0, viewDir.y);
 
   float f = 0.6*streaks + 0.4*smoothstep(1.0, -0.5, viewDir.y);
@@ -109,10 +109,9 @@ vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {
   g *= g;
 
   vec3 sky = mix(zenithCol, horizonCol, f*f);
-
   vec3 additionalColor = mix(NL_END_HORIZON_COL, vec3(0.06, 0.04, 0.62), 1.0);
-  sky += (0.1*streaks + 2.0*g*g*g + h*h*h) * additionalColor;
 
+  sky += (0.1*streaks + 2.0*g*g*g + h*h*h) * additionalColor;
   sky += 0.2*streaks*additionalColor;
 
   return sky;

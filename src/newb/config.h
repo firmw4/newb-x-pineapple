@@ -47,7 +47,7 @@
 #define NL_SHADOW_INTENSITY	0.83 // 0.0 no shadow ~ 1.0 strong shadow
 #define NL_BLINKING_TORCH             // [toggle] flickering light
 //#define NL_CLOUD_SHADOW               // [toggle] cloud shadow (simple clouds only)
-#define NLC_DARKEN_PLANT_BOTTOM  1.1  // 1.2 default ~ 1.8 darken (darken at bottom)
+#define NLC_DARKEN_PLANT_BOTTOM  1.2  // 1.2 default ~ 1.8 darken (darken at bottom)
 
 /* Sun/moon light color on terrain */
 #define NL_MORNING_SUN_COL vec3(1.1, 0.41, 0.12)
@@ -78,8 +78,8 @@
 #define NL_NIGHT_HORIZON_COL vec3(0.002, 0.18, 0.22)
 
 #define NL_DAWN_ZENITH_COL   vec3(0.24, 0.28, 0.62)
-#define NL_DAWN_HORIZON_COL  vec3(1.2, 0.461, 0.32)
-#define NL_DAWN_EDGE_COL     vec3(1.2, 0.212, 0.22)
+#define NL_DAWN_HORIZON_COL  vec3(1.2, 0.361, 0.22)
+#define NL_DAWN_EDGE_COL     vec3(1.2, 0.212, 0.32)
 
 #define NL_RAIN_ZENITH_COL   vec3(0.27, 0.32, 0.38)
 #define NL_RAIN_HORIZON_COL  vec3(0.26, 0.31, 0.48)
@@ -100,12 +100,12 @@
 /* Waving */
 #define NL_PLANTS_WAVE  0.12    // [toggle] 0.02 gentle ~ 0.4 violent
 #define NL_LANTERN_WAVE 0.11    // [toggle] 0.05 subtle ~ 0.4 large swing
-#define NL_WAVE_SPEED   0.82    // 0.5 slow wave ~ 5.0 very fast wave
+#define NL_WAVE_SPEED   0.99    // 0.5 slow wave ~ 5.0 very fast wave
 //#define NL_EXTRA_PLANTS_WAVE  // [toggle] !dont use! wave using texture coords (1.21.0 vanilla 2048x1024)
 
 /* Water */
 #define NL_WATER_TRANSPARENCY   0.4   // 0.0 transparent ~ 1.0 normal
-#define NL_WATER_BUMP           0.012  // 0.001 plain ~ 0.2 bumpy water
+#define NL_WATER_BUMP           0.08  // 0.001 plain ~ 0.2 bumpy water
 #define NL_WATER_TEX_OPACITY    0.5   // 0.0 plain water ~ 1.0 vanilla water texture
 #define NL_WATER_WAVE                 // [toggle] wave effect
 #define NL_WATER_FOG_FADE             // [toggle] fog fade for water
@@ -114,9 +114,9 @@
 
 /* Underwater */
 #define NL_UNDERWATER_BRIGHTNESS    2.0   // 0.0 dark ~ 3.0 bright
-#define NL_CAUSTIC_INTENSITY        2.5   // 0.5 weak ~ 5.0 bright
-#define NL_UNDERWATER_WAVE          0.08  // [toggle] 0.02 subtle ~ 0.6 trippy
-#define NL_UNDERWATER_STREAKS       1.6   // [toggle] 0.8 subtle - 2.0 bright streaks from top
+#define NL_CAUSTIC_INTENSITY        4.0   // 0.5 weak ~ 5.0 bright
+#define NL_UNDERWATER_WAVE          0.04  // [toggle] 0.02 subtle ~ 0.6 trippy
+#define NL_UNDERWATER_STREAKS       1.8   // [toggle] 0.8 subtle - 2.0 bright streaks from top
 #define NL_UNDERWATER_TINT          vec3(0.2, 0.8, 0.9) // fog tint color when underwater
 //#define NLC_CLEAR_UNDERWATER
 
@@ -220,11 +220,11 @@
   #define NL_CLOUD0_MULTILAYER
 #endif
 
-#ifdef CLOUD_RELFECTION
+#ifdef CLOUD_REFLECTION
   #define NL_WATER_CLOUD_REFLECTION
 #endif
 
-#ifdef ALWAYS_RELFECTION
+#ifdef ALWAYS_REFLECTION
   #define NL_WATER_CLOUD_REFLECTION
   #define NL_GROUND_REFL 0.6
   #define NL_GROUND_AURORA_REFL

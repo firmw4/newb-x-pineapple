@@ -69,17 +69,10 @@ vec3 nlLighting(
     // sky ambient
     light += mix(horizonCol,zenithCol,0.5+uv1.y-0.5*lit.y)*(lit.y*(3.0-2.0*uv1.y)*(1.3 + (4.0*nightFactor) - rainDim));
 
-
     // shadow cast by top light
     float shadow = step(0.93, uv1.y);
     shadow = max(shadow, (1.0 - NL_SHADOW_INTENSITY + (0.6*NL_SHADOW_INTENSITY*nightFactor))*lit.y);
     shadow *= shade > 0.8 ? 1.0 : 0.8;
-/*
-    float sharpnessFactor = 30.0;
-    float shadow = smoothstep(0.01, 0.9333 + (1.0 / sharpnessFactor), uv1.y);
-    shadow = max(shadow, (1.0 - NL_SHADOW_INTENSITY + (0.8 * NL_SHADOW_INTENSITY * nightFactor)) * lit.y);
-    shadow *= shade > 0.8 ? 1.0 : 0.8;
-*/
 
     // shadow cast by simple cloud
     #ifdef NL_CLOUD_SHADOW
@@ -98,10 +91,7 @@ vec3 nlLighting(
   }
 
   // darken at crevices with sharp shadows
-  //light *= COLOR.g > 0.35 ? 1.0 : 0.8;
-  float shadowSharpness = 0.5;
-  float darkeningFactor = smoothstep(shadowSharpness - 0.1, shadowSharpness + 0.1, COLOR.g);
-  light *= 1.0 - darkeningFactor * 0.2;
+  light *= COLOR.g > 0.35 ? 1.0 : 0.8;
 
   // brighten tree leaves
   if (isTree) {
