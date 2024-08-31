@@ -64,7 +64,7 @@ vec4 perm(vec4 x) {
   return mod289(((x * 34.0) + 1.0) * x);
 }
 
-// 3d noise for cloud2
+// 2D noise for cloud2
 float noise2D(vec3 p){
   vec3 a = floor(p);
   vec3 d = p - a;
@@ -87,7 +87,7 @@ float noise2D(vec3 p){
   return o4.y * d.y + o4.x * (1.0 - d.y);
 }
 
-// 3D star noise modeling
+// star noise modeling
 float sNoise(in vec3 p) {
   vec3 i = floor(p);
   vec3 f = fract(p);

@@ -47,7 +47,7 @@ input = '''
 define = "ALWAYS_REFLECTION"
 materials = ["RenderChunk"]
 description = '''
-§bAlways Reflection§r
+§dAlways Reflection§r
 
 Summary: Ground reflection is always on and cloud reflection on water
 '''
@@ -56,16 +56,25 @@ Summary: Ground reflection is always on and cloud reflection on water
 define = "CLOUD_REFLECTION"
 materials = ["RenderChunk"]
 description = '''
-§eCloud Reflection§r
+§bCloud Reflection§r
 
 Summary: Enable cloud reflection on water
+'''
+
+[[subpack]]
+define = "R_MULTILAYER_CLOUD"
+materials = ["Clouds"]
+description = '''
+§9Rounded Multilayer Cloud§r
+
+Summary: Rounded cloud style with extra layer
 '''
 
 [[subpack]]
 define = "V_MULTILAYER_CLOUD"
 materials = ["Clouds"]
 description = '''
-§9Vanilla Multilayer Cloud§r
+§1Vanilla Multilayer Cloud§r
 
 Summary: Vanilla cloud style with extra layer
 '''
@@ -83,7 +92,7 @@ Summary: Change to vanilla clouds style
 define = "SIMPLE_CLOUD"
 materials = ["Clouds"]
 description = '''
-§1Simple Cloud§r
+§eSimple Cloud§r
 
 Summary: Change to simple soft clouds style
 '''
@@ -103,5 +112,5 @@ materials = []
 description = '''
 Default
 
-Summary: Rounded clouds, wave effect and aurora at night
+Summary: Rounded cloud style, waving effect and aurora at night
 '''

@@ -34,7 +34,6 @@ void main() {
     }
 
     vec3 skyColor = nlRenderSky(horizonEdgeCol, horizonCol, zenithCol, -viewDir, v_fogColor, v_underwaterRainTime.z, rainFactor, false, underWater, false) * 1.0;
-
     skyColor = colorCorrection(skyColor);
 
     float sThreshold = 8.0;
@@ -44,7 +43,7 @@ void main() {
     skyColor += vec3(s*2.0, s*2.0, s*2.0)*mask;
 
     #ifdef NLC_SHOOTING_STAR
-    skyColor += pow(vec3_splat(star(sPos.xz*160.0, v_underwaterRainTime.z))*1.0, vec3(16, 6, 4)) * mask;
+    skyColor += pow(vec3(star(sPos.xz*160.0, v_underwaterRainTime.z))*1.0, vec3(16, 6, 4)) * mask;
     #endif
 
     gl_FragColor = vec4(skyColor, 1.0);

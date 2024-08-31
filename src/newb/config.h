@@ -220,6 +220,10 @@
   #define NL_CLOUD0_MULTILAYER
 #endif
 
+#ifdef R_MULTILAYER_CLOUD
+  #define NL_CLOUD2_MULTILAYER
+#endif
+
 #ifdef CLOUD_REFLECTION
   #define NL_WATER_CLOUD_REFLECTION
 #endif
@@ -230,8 +234,21 @@
   #define NL_GROUND_AURORA_REFL
 #endif
 
-/*
-#ifdef VOLUMETRIC_CLOUDS
+#ifdef LITE
+  #undef NL_BLINKING_TORCH
+  #undef NL_FOG_TYPE
+  #undef NL_PLANTS_WAVE
+  #undef NL_LANTERN_WAVE
+  #undef NL_UNDERWATER_WAVE
+  #undef NL_WATER_WAVE
+  #undef NL_RAIN_MIST_OPACITY
+  #undef NL_EXTRA_PLANTS_WAVE
+  #undef NL_CLOUD_TYPE
+  #define NL_FOG_TYPE 2
+  #define NL_CLOUD_TYPE 1
+#endif
+
+#ifdef ULTRA
   #undef NL_CLOUD2_THICKNESS
   #undef NL_CLOUD2_RAIN_THICKNESS
   #undef NL_CLOUD2_STEPS
@@ -239,6 +256,7 @@
   #undef NL_CLOUD2_SHAPE
   #undef NL_CLOUD2_DENSITY
   #undef NL_AURORA_SCALE
+  #define NL_WATER_CLOUD_REFLECTION
   #define NL_CLOUD2_THICKNESS 3.0
   #define NL_CLOUD2_RAIN_THICKNESS 3.0
   #define NL_CLOUD2_STEPS 8
@@ -247,7 +265,13 @@
   #define NL_CLOUD2_DENSITY 3.5
   #define NL_AURORA_SCALE 0.015
   #define NLC_CLOUD2_CUSTOM
+  #define NL_CHUNK_LOAD_ANIM 30.0
 #endif
-*/
+
+#ifdef ULTRA_AR
+  #define ULTRA
+  #define NL_GROUND_REFL 0.6
+  #define NL_GROUND_AURORA_REFL
+#endif
 
 #endif
