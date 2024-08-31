@@ -114,7 +114,7 @@
 
 /* Underwater */
 #define NL_UNDERWATER_BRIGHTNESS    2.0   // 0.0 dark ~ 3.0 bright
-#define NL_CAUSTIC_INTENSITY        4.0   // 0.5 weak ~ 5.0 bright
+#define NL_CAUSTIC_INTENSITY        4.1   // 0.5 weak ~ 5.0 bright
 #define NL_UNDERWATER_WAVE          0.04  // [toggle] 0.02 subtle ~ 0.6 trippy
 #define NL_UNDERWATER_STREAKS       1.8   // [toggle] 0.8 subtle - 2.0 bright streaks from top
 #define NL_UNDERWATER_TINT          vec3(0.2, 0.8, 0.9) // fog tint color when underwater
