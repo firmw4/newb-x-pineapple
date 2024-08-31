@@ -13,7 +13,6 @@
 void main() {
   #ifndef INSTANCING
     vec3 viewDir = normalize(v_worldPos);
-    vec3 sDir = normalize(v_worldPos);
     bool underWater = v_underwaterRainTime.x > 0.5;
     float rainFactor = v_underwaterRainTime.y;
     float mask = (1.0 - 1.0 * rainFactor) * max(1.0 - 3.0 * max(v_fogColor.b, v_fogColor.g), 0.0);
@@ -38,12 +37,12 @@ void main() {
 
     float sThreshold = 8.0;
     float sExposure = 100.0;
-    float s = pow(clamp(sNoise(sDir*200.0), 0.0, 1.0), sThreshold) * sExposure;
-    s *= mix(0.4, 1.4, sNoise(sDir*100.0 + vec3(ViewPositionAndTime.w, ViewPositionAndTime.w, ViewPositionAndTime.w)));
+    float s = pow(clamp(sNoise(viewDir*200.0), 0.0, 1.0), sThreshold) * sExposure;
+    s *= mix(0.4, 1.4, sNoise(viewDir*100.0 + vec3(ViewPositionAndTime.w, ViewPositionAndTime.w, ViewPositionAndTime.w)));
     skyColor += vec3(s*2.0, s*2.0, s*2.0)*mask;
 
     #ifdef NLC_SHOOTING_STAR
-    skyColor += pow(vec3(star(sPos.xz*160.0, v_underwaterRainTime.z))*1.0, vec3(16, 6, 4)) * mask;
+    skyColor += pow(vec3_splat(star(sPos.xz*160.0, v_underwaterRainTime.z))*1.0, vec3(16, 6, 4)) * mask;
     #endif
 
     gl_FragColor = vec4(skyColor, 1.0);
